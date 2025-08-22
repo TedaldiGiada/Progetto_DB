@@ -36,18 +36,16 @@ public class AdminView extends JPanel {
 
         // Aggiungo i 4 pannelli
         tabbedPane.addTab("Dipendenti",  createDipendentePanel());
-        tabbedPane.addTab("Assegna Macchina",  createAssegnaMacchinaPanel());
+        tabbedPane.addTab("Assegnazione Macchina",  createAssegnaMacchinaPanel());
         tabbedPane.addTab("Trattamenti", createTrattamentiPanel());
         tabbedPane.addTab("Manutenzioni", createManutenzionePanel());
 
         add(tabbedPane, BorderLayout.CENTER);
     }
 
-    private Component createAssegnaMacchinaPanel() {
-       JPanel assegnazioni = new JPanel(new BorderLayout(10, 10));
-
+    private JPanel createAssegnaMacchinaPanel() {
+        JPanel assegnazioni = new JPanel(new BorderLayout(10, 10));
         JPanel formPanel = new JPanel(new GridLayout(4, 2, 10, 10));
-
         formPanel.add(new JLabel("Dipendente:"));
         dipendenteBox = new JComboBox<>();
         formPanel.add(dipendenteBox);

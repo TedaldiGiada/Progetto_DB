@@ -19,7 +19,7 @@ public class LandCultivationDAOImpl implements LandCultivationDAO{
     public List<String> coltureInTerrenoAnno(int ID_Terreno, int anno) {
         List<String> result = new ArrayList<>();
         String sql = """
-            SELECT P.nome
+            SELECT P.nome, P.tipo P.descrizione
             FROM Pianta P
             JOIN Ciclo_Colturale C ON C.ID_Pianta = P.ID_Pianta
             WHERE C.ID_Terreno = ? AND C.anno = ?
@@ -29,7 +29,7 @@ public class LandCultivationDAOImpl implements LandCultivationDAO{
             st.setInt(2, anno);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                result.add(rs.getString("nome"));
+                result.add(rs.getString("nome") + rs.getString("tipo")+ rs.getString("descrizione"));
             }
         } catch (SQLException e) {
             throw new DAOException("Errore caricamento colture terreno", e);

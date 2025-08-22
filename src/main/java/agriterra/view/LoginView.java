@@ -3,6 +3,7 @@ package main.java.agriterra.view;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import main.java.agriterra.Controller;
 
 public class LoginView extends JFrame {
     private Controller controller;
@@ -175,12 +176,12 @@ public class LoginView extends JFrame {
     
     // Metodo per aggiungere listener al pulsante login
     public void addLoginListener(ActionListener listener) {
-        /*loginButton.addActionListener(e -> {
+        loginButton.addActionListener(e -> {
             if (this.controller != null) {
                 this.controller.check();
             }
-        });*/
-    loginButton.addActionListener(listener);
+        });
+
     }
     
     // Metodo per mostrare la finestra
@@ -198,19 +199,7 @@ public class LoginView extends JFrame {
         SwingUtilities.invokeLater(() -> {
             
             LoginView loginView = new LoginView();
-            
-            // Test listener
-            loginView.addLoginListener(e -> {
-                String username = loginView.getUsername();
-                String password = loginView.getPassword();
-                
-                if (username.isEmpty() || password.isEmpty()) {
-                    loginView.showMessage("Inserisci username e password", true);
-                } else {
-                    loginView.showMessage("Login in corso...", false);
-                    // Qui si chiamerebbe il controller per l'autenticazione
-                }
-            });
+
             
             loginView.display();
         });
