@@ -25,8 +25,8 @@ public class UsedVehiclesDAOImpl implements UsedVehiclesDAO{
     String sql = """
         SELECT M:ID_Macchinario, M.nome, M.marca_modello
         FROM Macchinario M
-        JOIN AssegnazioneMacchinario A ON A.ID_Macchinario = M.ID_Macchinario
-        WHERE A.coltivazione_id = ?
+        JOIN UtilizzoMacchinario UM A ON UM.ID_Macchinario = M.ID_Macchinario
+        WHERE UM.ID_Ciclo = ?
     """;
     try (PreparedStatement st = conn.prepareStatement(sql)) {
         st.setInt(1, ID_Ciclo);

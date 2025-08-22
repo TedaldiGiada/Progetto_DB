@@ -20,17 +20,17 @@ public class LandCultivationDAOImpl implements LandCultivationDAO{
     public List<String> coltureInTerrenoAnno(int ID_Terreno, int anno) {
         List<String> result = new ArrayList<>();
         String sql = """
-            SELECT P.nome, P.tipo P.descrizione
-            FROM Pianta P
-            JOIN Ciclo_Colturale C ON C.ID_Pianta = P.ID_Pianta
-            WHERE C.ID_Terreno = ? AND C.anno = ?
+            SELECT C.ID_Pianta
+            FROM CICLO_COLTURALE C
+            WHERE C.ID_Terreno = ? 
+                AND YEAR(C.data_inizio) = ?
         """;
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setInt(1, ID_Terreno);
             st.setInt(2, anno);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                result.add(rs.getString("nome") + rs.getString("tipo")+ rs.getString("descrizione"));
+                result.add("ID_Pianta" + rs.getInt("ID_Pianta"));
             }
         } catch (SQLException e) {
             throw new DAOException("Errore caricamento colture terreno", e);

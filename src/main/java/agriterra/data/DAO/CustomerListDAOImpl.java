@@ -21,10 +21,10 @@ public class CustomerListDAOImpl implements CustomerListDAO{
     public List<String> listaCompratoriAnnui(int anno) {
         List<String> result = new ArrayList<>();
         String sql = """
-            SELECT ID_Cliente, nome, cognome 
-            FROM Cliente C
+            SELECT DISTINCT ID_Cliente, nome, cognome 
+            FROM CLIENTE C
             JOIN Vendita V ON V.ID_Cliente = C.ID_Cliente
-            WHERE anno = ?
+            WHERE YEAR(V.data) = ?
                     
         """;
         try (PreparedStatement st = conn.prepareStatement(sql)) {

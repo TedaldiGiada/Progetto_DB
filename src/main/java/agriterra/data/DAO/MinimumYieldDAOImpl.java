@@ -20,18 +20,17 @@ public class MinimumYieldDAOImpl implements MinimumYieldDAO{
     }
 
     @Override
-    public List<String> terreniConRendimentoMin(String nome, double min) {
+    public List<String> terreniConRendimentoMin(String nome) {
         List<String> result = new ArrayList<>();
         String sql = """
-            SELECT T.ID_Terreno, C.rendimento
-            FROM Terreno T
-            JOIN Ciclo_Colturale C ON C.ID_Terreno = T.ID_Terreno
+            SELECT TOP(1) C.ID_Terreno, C.rendimento
+            FROM Ciclo_Colturale
             JOIN Pianta P ON C.ID_Pianta = P.ID_Pianta
-            WHERE P.nome = ? AND C.rendimento < ?
+            WHERE P.nome = ?
+            ORDERED BY C.rendimento ASC
         """;
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, nome);
-            st.setDouble(2, min);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 result.add("Terreno:" + rs.getString("ID_Terreno") + " rendimento: " + rs.getDouble("rendimento"));
