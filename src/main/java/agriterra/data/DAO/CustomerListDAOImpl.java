@@ -1,12 +1,12 @@
-package ;
+package main.java.agriterra.data.DAO;
+
+import api.CustomerListDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import api.CustomerListDAO;
 import utils.DAOException;
 
 public class CustomerListDAOImpl implements CustomerListDAO{

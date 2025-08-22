@@ -1,4 +1,4 @@
-package DAO;
+package main.java.agriterra.data.DAO;
 
 import api.VehicleAssignmentDAO;
 import java.sql.Connection;

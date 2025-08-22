@@ -1,4 +1,4 @@
-package DAO;
+package main.java.agriterra.data.DAO;
 
 import api.RegistrationEmployeeDAO;
 import java.sql.Connection;

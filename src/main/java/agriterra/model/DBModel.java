@@ -10,8 +10,9 @@ public final class DBModel implements Model {
     public DBModel(Connection connection) {
         Objects.requireNonNull(connection, "Model created with null connection");
         this.connection = connection;
-        //this.previews = Optional.empty();
     }
+
+    
 
     
 }

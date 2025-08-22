@@ -1,12 +1,12 @@
-package DAO;
+package main.java.agriterra.data.DAO;
 
-import api.UsedVehiclesDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import main.java.agruterrra.api.UsedVehiclesDAO;
 import utils.DAOException;
 
 public class UsedVehiclesDAOImpl implements UsedVehiclesDAO{
