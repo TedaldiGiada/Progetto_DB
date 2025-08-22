@@ -1,9 +1,6 @@
 import java.util.Objects;
-
 import javax.swing.JOptionPane;
 
-import main.java.agriterra.model.Model;
-import main.java.agriterra.view.LoginView;
 
 public class Controller {
     private final Model model;

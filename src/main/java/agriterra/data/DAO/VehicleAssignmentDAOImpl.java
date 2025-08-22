@@ -1,11 +1,12 @@
-package main.java.agriterra.data.DAO;
+package data.DAO;
 
-import api.VehicleAssignmentDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+
+import data.api.VehicleAssignmentDAO;
 import utils.DAOException;
 
 public class VehicleAssignmentDAOImpl implements VehicleAssignmentDAO {

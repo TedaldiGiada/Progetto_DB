@@ -1,4 +1,4 @@
-package main.java.agriterra.data.DAO;
+package data.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import main.java.agruterrra.api.UsedVehiclesDAO;
-import utils.DAOException;
+
+import data.api.UsedVehiclesDAO;
 
 public class UsedVehiclesDAOImpl implements UsedVehiclesDAO{
     private final Connection conn;

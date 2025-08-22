@@ -1,11 +1,12 @@
-package main.java.agriterra.data.DAO;
+package data.DAO;
 
-import api.RegistrationEmployeeDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import data.api.RegistrationEmployeeDAO;
 import utils.DAOException;
 
 public class RegistrationEmployeeDAOImpl implements RegistrationEmployeeDAO{

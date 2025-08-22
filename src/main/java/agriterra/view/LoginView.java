@@ -1,9 +1,6 @@
-package main.java.agriterra.view;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import main.java.agriterra.Controller;
 
 public class LoginView extends JFrame {
     private Controller controller;

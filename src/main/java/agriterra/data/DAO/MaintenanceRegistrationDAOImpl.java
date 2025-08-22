@@ -1,10 +1,11 @@
-package main.java.agriterra.data.DAO;
+package data.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import api.MaintenanceRegistrationDAO;
+import data.api.MaintenanceRegistrationDAO;
+import utils.DAOException;
 
 public class MaintenanceRegistrationDAOImpl implements MaintenanceRegistrationDAO {
     private final Connection conn;

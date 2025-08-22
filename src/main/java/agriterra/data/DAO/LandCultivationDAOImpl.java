@@ -1,4 +1,4 @@
-package main.java.agriterra.data.DAO;
+package data.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import api.LandCultivationDAO;
+import data.api.LandCultivationDAO;
 import utils.DAOException;
 
 public class LandCultivationDAOImpl implements LandCultivationDAO{

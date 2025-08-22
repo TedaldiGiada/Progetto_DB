@@ -1,9 +1,5 @@
-package main.java.agriterra;
 import java.sql.SQLException;
-
-import main.java.agriterra.data.utils.DAOUtils;
-import main.java.agriterra.model.Model;
-import main.java.agriterra.view.LoginView;
+import utils.DAOUtils;
 
 public final class App {
     public static void main(String[] args) throws SQLException{

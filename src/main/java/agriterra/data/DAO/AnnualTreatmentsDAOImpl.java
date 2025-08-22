@@ -1,5 +1,6 @@
-package main.java.agriterra.data.DAO;
-import api.AnnualTreatmentsDAO;
+package data.DAO;
+
+import data.api.AnnualTreatmentsDAO;
 
 public class AnnualTreatmentsDAOImpl implements AnnualTreatmentsDAO{
     
