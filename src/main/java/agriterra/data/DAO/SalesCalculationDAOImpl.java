@@ -1,4 +1,4 @@
-package main.java.agriterra.data.DAO;
+package agriterra.data.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,8 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import api.SalesCalculationDAO;
-import utils.DAOException;
+import agriterra.data.api.SalesCalculationDAO;
+import agriterra.data.utils.DAOException;
+
+
 
 public class SalesCalculationDAOImpl implements SalesCalculationDAO {
     private final Connection conn;
@@ -16,6 +18,7 @@ public class SalesCalculationDAOImpl implements SalesCalculationDAO {
         this.conn = conn;
     }
 
+    @Override
     public List<String> calcoloVenditeAnnue(int anno) {
         List<String> result = new ArrayList<>();
         String sql = "SELECT COUNT(ID_Vendita) as totale FROM Vendita WHERE anno = ?";

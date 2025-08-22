@@ -1,3 +1,4 @@
+package agriterra.model;
 
 import java.sql.Connection;
 import java.util.Objects;

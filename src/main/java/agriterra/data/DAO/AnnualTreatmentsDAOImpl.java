@@ -1,6 +1,6 @@
-package data.DAO;
+package agriterra.data.DAO;
 
-import data.api.AnnualTreatmentsDAO;
+import agriterra.data.api.AnnualTreatmentsDAO;
 
 public class AnnualTreatmentsDAOImpl implements AnnualTreatmentsDAO{
     

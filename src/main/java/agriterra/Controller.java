@@ -1,5 +1,12 @@
+package agriterra;
+
 import java.util.Objects;
 import javax.swing.JOptionPane;
+import agriterra.model.Model;
+import agriterra.view.AdminView;
+import agriterra.view.LoginView;
+import agriterra.view.ManagerView;
+import agriterra.view.SellerView;
 
 
 public class Controller {

@@ -1,6 +1,9 @@
+package agriterra.view;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -45,9 +48,9 @@ public class ManagerView extends JPanel {
     private JButton aggiungiCicli;
 
     public ManagerView() {
-        initilizeGUI();
+        initializeGUI();
     }
-    public void initilizeGUI() {
+    public void initializeGUI() {
         setLayout(new BorderLayout());
         tabbedPane = new JTabbedPane();
 

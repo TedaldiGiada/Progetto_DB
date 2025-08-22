@@ -1,4 +1,4 @@
-package data.DAO;
+package agriterra.data.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.api.LandCultivationDAO;
-import utils.DAOException;
+import agriterra.data.api.LandCultivationDAO;
+import agriterra.data.utils.DAOException;
 
 public class LandCultivationDAOImpl implements LandCultivationDAO{
     private final Connection conn;
@@ -16,6 +16,7 @@ public class LandCultivationDAOImpl implements LandCultivationDAO{
     public LandCultivationDAOImpl(Connection conn) {
         this.conn = conn;
     }
+    @Override
     public List<String> coltureInTerrenoAnno(int ID_Terreno, int anno) {
         List<String> result = new ArrayList<>();
         String sql = """

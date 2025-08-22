@@ -1,4 +1,5 @@
-package main.java.agriterra.data.DAO;
+package agriterra.data.DAO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,8 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import api.MinimumYieldDAO;
-import utils.DAOException;
+import agriterra.data.api.MinimumYieldDAO;
+import agriterra.data.utils.DAOException;
+
+
 
 public class MinimumYieldDAOImpl implements MinimumYieldDAO{
     private final Connection conn;
@@ -16,6 +19,7 @@ public class MinimumYieldDAOImpl implements MinimumYieldDAO{
         this.conn = conn;
     }
 
+    @Override
     public List<String> terreniConRendimentoMin(String nome, double min) {
         List<String> result = new ArrayList<>();
         String sql = """

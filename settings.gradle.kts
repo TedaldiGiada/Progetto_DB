@@ -1,1 +1,1 @@
-rootProject.name = "ProgettoDB"
+rootProject.name = "Progetto_DB"

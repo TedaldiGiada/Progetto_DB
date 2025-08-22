@@ -1,6 +1,26 @@
-import java.awt.*;
+package agriterra.view;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
+
+import agriterra.Controller;
 
 public class LoginView extends JFrame {
     private Controller controller;
@@ -12,8 +32,8 @@ public class LoginView extends JFrame {
     public LoginView() {
         initializeGUI();
     }
-    
-    private void initializeGUI() {
+
+    public void initializeGUI() {
         setTitle("Sistema di Gestione Agricola - Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 400);

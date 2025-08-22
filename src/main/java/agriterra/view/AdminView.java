@@ -1,5 +1,18 @@
-import java.awt.*;
-import javax.swing.*;
+package agriterra.view;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 public class AdminView extends JPanel {
@@ -27,9 +40,9 @@ public class AdminView extends JPanel {
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public AdminView() {
-        initilizeGUI();
+        initializeGUI();
     }
-    public void initilizeGUI() {
+    public void initializeGUI() {
         setLayout(new BorderLayout());
         tabbedPane = new JTabbedPane();
 

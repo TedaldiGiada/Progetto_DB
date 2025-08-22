@@ -1,4 +1,4 @@
-package data.DAO;
+package agriterra.data.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.api.RegistrationEmployeeDAO;
-import utils.DAOException;
+import agriterra.data.api.RegistrationEmployeeDAO;
+import agriterra.data.utils.DAOException;
+
+
 
 public class RegistrationEmployeeDAOImpl implements RegistrationEmployeeDAO{
   
@@ -17,6 +19,7 @@ public class RegistrationEmployeeDAOImpl implements RegistrationEmployeeDAO{
         this.conn = conn;
     }
     
+    @Override
     public void registraDipendente(String CF, String nome, String cognome, int telefono, String via, String num_civ, String città, String note) {
         String sql = "INSERT INTO Dipendente(nome, cognome, ruolo) VALUES (?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
@@ -34,6 +37,7 @@ public class RegistrationEmployeeDAOImpl implements RegistrationEmployeeDAO{
         }
     }
     
+    @Override
     public List<String> listaDipendenti() {
         List<String> result = new ArrayList<>();
         String sql = "SELECT CF, nome, cognome, telefono, via, num_civ, città, note FROM Dipendente";

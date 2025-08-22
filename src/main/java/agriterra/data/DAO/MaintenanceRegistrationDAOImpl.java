@@ -1,11 +1,12 @@
-package data.DAO;
+package agriterra.data.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
-import data.api.MaintenanceRegistrationDAO;
-import utils.DAOException;
+import agriterra.data.api.MaintenanceRegistrationDAO;
+import agriterra.data.utils.DAOException;
+
+
 
 public class MaintenanceRegistrationDAOImpl implements MaintenanceRegistrationDAO {
     private final Connection conn;
@@ -14,6 +15,7 @@ public class MaintenanceRegistrationDAOImpl implements MaintenanceRegistrationDA
         this.conn = conn;
     }
 
+    @Override
     public void registraManutenzione(int ID_Manutenzione, String azienda, String descrizione, String tipo, int ID_Spesa, String ID_Macchinario) {
         String sql = "INSERT INTO Manutenzione(ID_Manutenzione, azienda, descrizione, tipo, ID_Spesa, ID_Macchinario) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {

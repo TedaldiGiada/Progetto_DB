@@ -1,4 +1,4 @@
-package data.DAO;
+package agriterra.data.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.api.CustomerListDAO;
-import data.utils.DAOException;
+import agriterra.data.api.CustomerListDAO;
+import agriterra.data.utils.DAOException;
+
 
 public class CustomerListDAOImpl implements CustomerListDAO{
      private final Connection conn;
@@ -16,6 +17,7 @@ public class CustomerListDAOImpl implements CustomerListDAO{
     public CustomerListDAOImpl(Connection conn) {
         this.conn = conn;
     }
+     @Override
     public List<String> listaCompratoriAnnui(int anno) {
         List<String> result = new ArrayList<>();
         String sql = """

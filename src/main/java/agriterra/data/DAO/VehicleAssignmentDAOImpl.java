@@ -1,4 +1,4 @@
-package data.DAO;
+package agriterra.data.DAO;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import data.api.VehicleAssignmentDAO;
-import utils.DAOException;
+import agriterra.data.api.VehicleAssignmentDAO;
+import agriterra.data.utils.DAOException;
+
+
 
 public class VehicleAssignmentDAOImpl implements VehicleAssignmentDAO {
     private final Connection conn;
@@ -16,6 +18,7 @@ public class VehicleAssignmentDAOImpl implements VehicleAssignmentDAO {
         this.conn = conn;
     }
 
+    @Override
     public void assegnaDipendenteAMacchina(String CF, String ID_Macchinario, LocalDate data, String note) {
         String sql = "INSERT INTO AssegnazioneMacchinario(CF, ID_Macchinario, data, note) VALUES (?, ?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {

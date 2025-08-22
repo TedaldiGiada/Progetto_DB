@@ -1,3 +1,5 @@
+package agriterra.model;
+
 import java.sql.Connection;
 
 public interface Model {

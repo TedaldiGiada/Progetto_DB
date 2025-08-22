@@ -1,4 +1,4 @@
-package utils;
+package agriterra.data.utils;
 
 import java.io.Serial;
 
