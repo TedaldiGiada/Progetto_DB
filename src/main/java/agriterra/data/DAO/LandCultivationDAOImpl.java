@@ -20,9 +20,10 @@ public class LandCultivationDAOImpl implements LandCultivationDAO{
     public List<String> coltureInTerrenoAnno(int ID_Terreno, int anno) {
         List<String> result = new ArrayList<>();
         String sql = """
-            SELECT C.ID_Pianta
-            FROM CICLO_COLTURALE C
-            WHERE C.ID_Terreno = ? 
+            SELECT P.ID_Pianta, P.nome 
+            FROM PIANTA P 
+            JOIN CICLO_COLTURALE CC ON P.ID_Pianta = CC.ID_Pianta 
+            WHERE CC.ID_Terreno = ? 
                 AND YEAR(C.data_inizio) = ?
         """;
         try (PreparedStatement st = conn.prepareStatement(sql)) {

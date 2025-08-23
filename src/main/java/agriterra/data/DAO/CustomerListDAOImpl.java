@@ -21,7 +21,7 @@ public class CustomerListDAOImpl implements CustomerListDAO{
     public List<String> listaCompratoriAnnui(int anno) {
         List<String> result = new ArrayList<>();
         String sql = """
-            SELECT DISTINCT ID_Cliente, nome, cognome 
+            SELECT DISTINCT C.ID_Cliente, C.nome, C.cognome 
             FROM CLIENTE C
             JOIN Vendita V ON V.ID_Cliente = C.ID_Cliente
             WHERE YEAR(V.data) = ?
