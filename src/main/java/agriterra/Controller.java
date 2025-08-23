@@ -1,13 +1,13 @@
 package agriterra;
 
 import java.util.Objects;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import agriterra.model.Model;
 import agriterra.view.AdminView;
 import agriterra.view.LoginView;
 import agriterra.view.ManagerView;
 import agriterra.view.SellerView;
-
 
 public class Controller {
     private final Model model;
@@ -25,21 +25,28 @@ public class Controller {
     }
 
     public void check() {
-        if (view.getUsername() == "admin" && view.getPassword() == "admin123") {
-            AdminView admin = new AdminView();
-            admin.initializeGUI();
-            
-        } else if (view.getUsername() == "vendite" && view.getPassword() == "vendite123") {
-            SellerView seller = new SellerView();
-            seller.initializeGUI();
-        } else if (view.getUsername() == "campo" && view.getPassword() == "campo123") {
-            ManagerView manager = new ManagerView();
-            manager.initializeGUI();
+        String username = view.getUsername();
+        String password = view.getPassword();
+
+        if ("admin".equals(username) && "admin123".equals(password)) {
+            openRoleFrame("Pannello Amministratore", new AdminView());
+        } else if ("vendite".equals(username) && "vendite123".equals(password)) {
+            openRoleFrame("Pannello Vendite", new SellerView());
+        } else if ("campo".equals(username) && "campo123".equals(password)) {
+            openRoleFrame("Pannello Responsabile Terreno", new ManagerView());
         } else {
-            JOptionPane.showMessageDialog(null, "Incorrect username or password");
+            JOptionPane.showMessageDialog(null, "Username o password errati", "Login fallito", JOptionPane.ERROR_MESSAGE);
             this.view.clearFields();
         }
     }
 
-
+    private void openRoleFrame(String title, javax.swing.JPanel panel) {
+        this.view.setVisible(false);
+        JFrame frame = new JFrame(title);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setContentPane(panel);
+        frame.setSize(900, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
 }

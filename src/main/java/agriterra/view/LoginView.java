@@ -193,12 +193,11 @@ public class LoginView extends JFrame {
     
     // Metodo per aggiungere listener al pulsante login
     public void addLoginListener(ActionListener listener) {
-        loginButton.addActionListener(e -> {
-            if (this.controller != null) {
-                this.controller.check();
-            }
-        });
+        loginButton.addActionListener(listener);
+    }
 
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
     
     // Metodo per mostrare la finestra
