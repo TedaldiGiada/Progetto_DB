@@ -34,6 +34,8 @@ public class Controller {
             openRoleFrame("Pannello Vendite", new SellerView());
         } else if ("campo".equals(username) && "campo123".equals(password)) {
             openRoleFrame("Pannello Responsabile Terreno", new ManagerView());
+        } else if ("seller".equals(username) && "seller123".equals(password)){
+            openRoleFrame("Pannello Venditore", new SellerView());
         } else {
             JOptionPane.showMessageDialog(null, "Username o password errati", "Login fallito", JOptionPane.ERROR_MESSAGE);
             this.view.clearFields();
