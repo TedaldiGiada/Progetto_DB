@@ -1,8 +1,8 @@
 package agriterra.data.api;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public interface PlantAssignmentDAO {
-    public void assegnaTerrenoAColtura(int ID_Ciclo, int anno, Date data_inizio, Date data_fine, 
+    public void assegnaTerrenoAColtura(int ID_Ciclo, int anno, LocalDate data_inizio, LocalDate data_fine, 
         int rendimento, String unità_misura, String descrizione, int ID_Terreno, int ID_Pianta, int ID_Vendita);
 }

@@ -13,7 +13,7 @@ public final class DBModel implements Model {
         this.connection = connection;
     }
 
-    
-
-    
+    public Connection getConnection() {
+        return connection;
+    }
 }

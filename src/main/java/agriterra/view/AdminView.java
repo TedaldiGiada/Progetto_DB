@@ -2,9 +2,9 @@ package agriterra.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.time.LocalDate;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,6 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
+import agriterra.data.api.AnnualTreatmentsDAO;
+import agriterra.data.api.MaintenanceRegistrationDAO;
+import agriterra.data.api.RegistrationEmployeeDAO;
+import agriterra.data.api.VehicleAssignmentDAO;
+
 public class AdminView extends JPanel {
 
     private JTabbedPane tabbedPane;
@@ -22,7 +27,6 @@ public class AdminView extends JPanel {
     public JButton caricaTrattamentiBtn;
     public JTable trattamentiTable;
     public DefaultTableModel trattamentiTableModel;
-    public JComboBox<String> manutMacchinaBox;
     public JTextField descrizioneManutField, costoManutField, dataManutField, tipoManutField;
     public JButton registraManutBtn, refreshManutBtn;
     public JTable manutenzioniTable;
@@ -32,11 +36,24 @@ public class AdminView extends JPanel {
     public JButton salvaDipBtn, refreshDipBtn;
     public JTable dipendentiTable;
     public DefaultTableModel dipendentiTableModel;
-    public JComboBox<String> dipendenteBox, macchinaBox;
     public JTextField dataAssegnazioneField, noteAssegnazioneField;
     public JButton assegnaMacchinaBtn, refreshAssegnazioniBtn;
     public JTable assegnazioniTable;
     public DefaultTableModel assegnazioniTableModel;
+    private RegistrationEmployeeDAO re;
+    private MaintenanceRegistrationDAO mr;
+    private VehicleAssignmentDAO va;
+    private JButton visualizzaTratt;
+    private DefaultTableModel trattTableModel;
+    private JTable trattTable;
+    private AnnualTreatmentsDAO at;
+    private JTextField dipendenteField;
+    private JTextField macchinaField;
+    private JTextField manutMacchinaField;
+    private JTextField annoField;
+    private JTextField spesaField;
+    private JTextField macchinarioField;
+    private JTextField aziendaField;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public AdminView() {
@@ -59,12 +76,12 @@ public class AdminView extends JPanel {
         JPanel assegnazioni = new JPanel(new BorderLayout(10, 10));
         JPanel formPanel = new JPanel(new GridLayout(4, 2, 10, 10));
         formPanel.add(new JLabel("Dipendente:"));
-        dipendenteBox = new JComboBox<>();
-        formPanel.add(dipendenteBox);
+        dipendenteField = new JTextField();
+        formPanel.add(dipendenteField);
 
         formPanel.add(new JLabel("Macchina:"));
-        macchinaBox = new JComboBox<>();
-        formPanel.add(macchinaBox);
+        macchinaField = new JTextField();
+        formPanel.add(macchinaField);
 
         formPanel.add(new JLabel("Data (YYYY-MM-DD):"));
         dataAssegnazioneField = new JTextField();
@@ -76,9 +93,11 @@ public class AdminView extends JPanel {
 
         JPanel btnPanel = new JPanel();
         assegnaMacchinaBtn = new JButton("Assegna Macchina");
-        refreshAssegnazioniBtn = new JButton("Aggiorna Lista");
+        assegnaMacchinaBtn.addActionListener(e -> {
+            va.assegnaDipendenteAMacchina(getDipendenteField(), getMacchinaField(), getDataAssegnazioneField(), getNoteAssegnazioneField());
+        });
+        
         btnPanel.add(assegnaMacchinaBtn);
-        btnPanel.add(refreshAssegnazioniBtn);
 
         assegnazioni.add(formPanel, BorderLayout.NORTH);
         assegnazioni.add(btnPanel, BorderLayout.SOUTH);
@@ -96,23 +115,28 @@ public class AdminView extends JPanel {
        JPanel panel = new JPanel(new BorderLayout(10, 10));
 
         JPanel form = new JPanel(new GridLayout(6, 2, 10, 10));
-        manutMacchinaBox = new JComboBox<>();
+        manutMacchinaField = new JTextField();
+        macchinarioField = new JTextField();
         descrizioneManutField = new JTextField();
-        costoManutField = new JTextField();
+        spesaField = new JTextField();
+        aziendaField = new JTextField();
         dataManutField = new JTextField();
         tipoManutField = new JTextField();
 
-        form.add(new JLabel("Macchina:")); form.add(manutMacchinaBox);
+        form.add(new JLabel("ID_Manutenzione:")); form.add(manutMacchinaField);
+        form.add(new JLabel("ID_Macchinario:")); form.add(macchinarioField);
+        form.add(new JLabel("Azienda:")); form.add(aziendaField);
         form.add(new JLabel("Descrizione:")); form.add(descrizioneManutField);
-        form.add(new JLabel("Costo (€):")); form.add(costoManutField);
-        form.add(new JLabel("Data:")); form.add(dataManutField);
         form.add(new JLabel("Tipo:")); form.add(tipoManutField);
+        form.add(new JLabel("ID_Spesa:")); form.add(spesaField);
+        
 
         registraManutBtn = new JButton("Registra");
-        refreshManutBtn = new JButton("Aggiorna Lista");
+        registraManutBtn.addActionListener(e -> {
+            mr.registraManutenzione(getManutMacchinaField(), getAzienda(), getDescrizioneManutField(), getTipoManutField(), getMacchinario(), getSpesa());
+        });
         JPanel btnPanel = new JPanel();
         btnPanel.add(registraManutBtn);
-        btnPanel.add(refreshManutBtn);
 
         manutenzioniTableModel = new DefaultTableModel(new Object[]{"ID", "Macchina", "Descrizione", "Costo", "Data", "Tipo"}, 0);
         manutenzioniTable = new JTable(manutenzioniTableModel);
@@ -125,8 +149,23 @@ public class AdminView extends JPanel {
     }
 
     private JPanel createTrattamentiPanel() {
-        JPanel panel = new JPanel();
-       return  panel;
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        JPanel form = new JPanel(new GridLayout(1, 3, 10, 10));
+        form.add(new JLabel("Anno:"));
+        annoField = new JTextField();
+        form.add(annoField);
+        visualizzaTratt = new JButton("Visualizza Trattamenti Annui");
+        visualizzaTratt.addActionListener(e -> {
+           at.listaTrattamentiAnnui(getAnnoTrattamentoField());
+        });
+        form.add(visualizzaTratt);
+
+        trattTableModel = new DefaultTableModel(new Object[]{"ID_Trattamento"}, 0);
+        trattTable = new JTable(trattTableModel);
+
+        panel.add(form, BorderLayout.NORTH);
+        panel.add(new JScrollPane(trattTable), BorderLayout.CENTER);
+        return panel;
     }
 
     private JPanel createDipendentePanel() {
@@ -168,9 +207,10 @@ public class AdminView extends JPanel {
 
         JPanel btnPanel = new JPanel();
         salvaDipBtn = new JButton("Registra Dipendente");
-        refreshDipBtn = new JButton("Aggiorna Lista");
+        salvaDipBtn.addActionListener(e -> {
+            re.registraDipendente(getCfField(), getNomeField(), getCognomeField(), getTelefonoField(), getViaField(), getNumCivField(), getCittaField(), getNomeField());
+        });
         btnPanel.add(salvaDipBtn);
-        btnPanel.add(refreshDipBtn);
 
         dipendenti.add(formPanel, BorderLayout.NORTH);
         dipendenti.add(btnPanel, BorderLayout.SOUTH);
@@ -187,19 +227,96 @@ public class AdminView extends JPanel {
     public JTabbedPane getTabbedPane() {
         return tabbedPane;
     }
+
+    public int getAnnoTrattamentoField() {
+        return Integer.parseInt(annoTrattamentoField.getText()); 
+    }
+
+    public int getManutMacchinaField() {
+        return Integer.parseInt(manutMacchinaField.getText()); 
+    }
+
+    public String getDescrizioneManutField() {
+        return descrizioneManutField.getText();
+    }
+
+     private String getSpesa() {
+        return spesaField.getText();
+    }
+    private int getMacchinario() {
+        return Integer.parseInt(macchinarioField.getText()); 
+    }
+    private String getAzienda() {
+        return aziendaField.getText();
+    }
+
+    public String getTipoManutField() {
+        return tipoManutField.getText();
+    }
+
+    public String getCfField() {
+        return cfField.getText();
+    }
+
+    public String getNomeField() {
+        return nomeField.getText();
+    }
+
+    public String getCognomeField() {
+        return cognomeField.getText();
+    }
+
+    public int getTelefonoField() {
+        return Integer.parseInt(telefonoField.getText()); 
+    }
+
+    public String getViaField() {
+        return viaField.getText();
+    }
+
+    public String getNumCivField() {
+        return numCivField.getText();
+    }
+
+    public String getCittaField() {
+        return cittaField.getText();
+    }
+
+    public String getNoteField() {
+        return noteField.getText();
+    }
+
+
+    public String getDipendenteField() {
+        return dipendenteField.getText(); // sostituito JComboBox → JTextField
+    }
+
+    public String getMacchinaField() {
+        return macchinaField.getText(); // sostituito JComboBox → JTextField
+    }
+
+    public LocalDate getDataAssegnazioneField() {
+        return  LocalDate.parse(dataAssegnazioneField.getText());
+    }
+
+
+    public String getNoteAssegnazioneField() {
+        return noteAssegnazioneField.getText();
+    }
+
     public static void main(String[] args) {
         // Avvio in thread grafico
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Pannello Amministratore");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            // Aggiungo il pannello admin
+            // passo "conn" al costruttore
             frame.setContentPane(new AdminView());
 
             frame.setSize(900, 600);
-            frame.setLocationRelativeTo(null); // centra la finestra
+            frame.setLocationRelativeTo(null);
             frame.setVisible(true);
-        });
-    }
+    });
+}
 }
 

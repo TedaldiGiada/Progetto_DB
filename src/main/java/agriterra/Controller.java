@@ -1,8 +1,10 @@
 package agriterra;
 
 import java.util.Objects;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 import agriterra.model.Model;
 import agriterra.view.AdminView;
 import agriterra.view.LoginView;
@@ -13,7 +15,7 @@ public class Controller {
     private final Model model;
     private final LoginView view;
 
-    public Controller(Model model, LoginView view) {
+    public Controller( Model model, LoginView view) {
         Objects.requireNonNull(model, "Controller created with null model");
         Objects.requireNonNull(view, "Controller created with null view");
         this.view = view;
@@ -34,8 +36,6 @@ public class Controller {
             openRoleFrame("Pannello Vendite", new SellerView());
         } else if ("campo".equals(username) && "campo123".equals(password)) {
             openRoleFrame("Pannello Responsabile Terreno", new ManagerView());
-        } else if ("seller".equals(username) && "seller123".equals(password)){
-            openRoleFrame("Pannello Venditore", new SellerView());
         } else {
             JOptionPane.showMessageDialog(null, "Username o password errati", "Login fallito", JOptionPane.ERROR_MESSAGE);
             this.view.clearFields();

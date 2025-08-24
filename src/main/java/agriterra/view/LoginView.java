@@ -9,7 +9,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -29,6 +28,7 @@ public class LoginView extends JFrame {
     private JButton loginButton;
     private JLabel messageLabel;
     
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public LoginView() {
         initializeGUI();
     }
@@ -192,8 +192,11 @@ public class LoginView extends JFrame {
     }
     
     // Metodo per aggiungere listener al pulsante login
-    public void addLoginListener(ActionListener listener) {
-        loginButton.addActionListener(listener);
+    public void addLoginListener() {
+        loginButton.addActionListener( e -> {
+            controller.check();
+            clearFields();
+        });
     }
 
     public void setController(Controller controller) {
@@ -206,6 +209,7 @@ public class LoginView extends JFrame {
     }
     
     // Metodo per nascondere la finestra
+    @Override
     public void hide() {
         setVisible(false);
     }
@@ -214,9 +218,7 @@ public class LoginView extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             
-            LoginView loginView = new LoginView();
-
-            
+            LoginView loginView = new LoginView(); 
             loginView.display();
         });
     }

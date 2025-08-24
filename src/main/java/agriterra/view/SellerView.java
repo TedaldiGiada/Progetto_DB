@@ -4,37 +4,38 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+
+import agriterra.data.api.CustomerListDAO;
+import agriterra.data.api.SalesCalculationDAO;
 
 public class SellerView extends JPanel {
 
     private JTabbedPane tabbedPane;
 
-    // Tab Clienti
     public JTable clientiTable;
     public DefaultTableModel clientiTableModel;
     public JButton refreshClientiBtn;
-
-    // Tab Vendite
-    public JComboBox<String> annoVenditeBox;
+    private SalesCalculationDAO sc;
+    private CustomerListDAO cl;
     public JButton calcolaVenditeBtn;
     public JTable venditeTable;
     public DefaultTableModel venditeTableModel;
-
-    // Tab Veicoli Usati
-    public JComboBox<String> cicloBox;
     public JButton visualizzaVeicoliUsatiBtn;
     public JTable veicoliUsatiTable;
     public DefaultTableModel veicoliUsatiTableModel;
+    private JTextField anno;;
+    private JTextField annoVenditeField;
 
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public SellerView() {
         initializeGUI();
     }
@@ -45,22 +46,29 @@ public class SellerView extends JPanel {
 
         tabbedPane.addTab("Clienti", createClientiPanel());
         tabbedPane.addTab("Vendite", createVenditePanel());
-        tabbedPane.addTab("Veicoli usati", createVeicoliUsatiPanel());
 
         add(tabbedPane, BorderLayout.CENTER);
     }
 
     private JPanel createClientiPanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        JPanel top = new JPanel(new GridLayout(1, 2, 10, 10));
-        refreshClientiBtn = new JButton("Aggiorna Lista Clienti");
+        JPanel top = new JPanel(new GridLayout(2, 1, 10, 10));
+        JPanel btm = new JPanel();
+        refreshClientiBtn = new JButton("Lista Clienti Annui");
+        refreshClientiBtn.addActionListener(e -> {
+            cl.listaCompratoriAnnui(getAnno());
+        });
+        top.add(new JLabel("Anno:"));
+        anno= new JTextField();
+        top.add(anno);
         top.add(new JLabel("Elenco clienti"));
-        top.add(refreshClientiBtn);
+        btm.add(refreshClientiBtn);
 
         clientiTableModel = new DefaultTableModel(new Object[]{"CF", "Nome", "Cognome", "Telefono", "Città"}, 0);
         clientiTable = new JTable(clientiTableModel);
 
         panel.add(top, BorderLayout.NORTH);
+        panel.add(btm, BorderLayout.SOUTH);
         panel.add(new JScrollPane(clientiTable), BorderLayout.CENTER);
         return panel;
     }
@@ -69,9 +77,12 @@ public class SellerView extends JPanel {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         JPanel form = new JPanel(new GridLayout(1, 3, 10, 10));
         form.add(new JLabel("Anno:"));
-        annoVenditeBox = new JComboBox<>();
-        form.add(annoVenditeBox);
+        annoVenditeField = new JTextField();
+        form.add(annoVenditeField);
         calcolaVenditeBtn = new JButton("Calcola Vendite");
+        calcolaVenditeBtn.addActionListener(e -> {
+            sc.calcoloVenditeAnnue(getAnnoVendite());
+        });
         form.add(calcolaVenditeBtn);
 
         venditeTableModel = new DefaultTableModel(new Object[]{"Prodotto", "Quantità", "Ricavo"}, 0);
@@ -82,21 +93,12 @@ public class SellerView extends JPanel {
         return panel;
     }
 
-    private JPanel createVeicoliUsatiPanel() {
-        JPanel panel = new JPanel(new BorderLayout(10, 10));
-        JPanel form = new JPanel(new GridLayout(1, 3, 10, 10));
-        form.add(new JLabel("Ciclo Colturale:"));
-        cicloBox = new JComboBox<>();
-        form.add(cicloBox);
-        visualizzaVeicoliUsatiBtn = new JButton("Visualizza Veicoli Usati");
-        form.add(visualizzaVeicoliUsatiBtn);
+    private int getAnno() {
+        return Integer.parseInt(anno.getText());
+    }
 
-        veicoliUsatiTableModel = new DefaultTableModel(new Object[]{"ID", "Marca/Modello", "Nome", "Categoria"}, 0);
-        veicoliUsatiTable = new JTable(veicoliUsatiTableModel);
-
-        panel.add(form, BorderLayout.NORTH);
-        panel.add(new JScrollPane(veicoliUsatiTable), BorderLayout.CENTER);
-        return panel;
+    private int getAnnoVendite() {
+        return Integer.parseInt(annoVenditeField.getText());
     }
 
     public JTabbedPane getTabbedPane() {

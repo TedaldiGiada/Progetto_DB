@@ -17,6 +17,7 @@ public class AnnualTreatmentsDAOImpl implements AnnualTreatmentsDAO{
         this.conn = conn;
 }
 
+    @Override
     public List<String> listaTrattamentiAnnui(int anno){
         List<String> result = new ArrayList<>();
         String sql = """

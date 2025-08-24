@@ -3,23 +3,28 @@ package agriterra.view;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.time.LocalDate;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+
+import agriterra.data.api.LandCultivationDAO;
+import agriterra.data.api.MinimumYieldDAO;
+import agriterra.data.api.PlantAssignmentDAO;
+import agriterra.data.api.UsedVehiclesDAO;
 
 public class ManagerView extends JPanel {
     
     private JTabbedPane tabbedPane;
-    private Component visualizzaLista;
-    private Component cicloBox;
+    private JButton visualizzaLista;
     private DefaultTableModel macchinariTableModel;
     private JTable macchinariTable;
     private JButton visualizzaPiante;
@@ -28,25 +33,32 @@ public class ManagerView extends JPanel {
     private DefaultTableModel rendimentiTableModel;
     private JButton visualizzaRendimenti;
     private Component rendimentiTable;
-    private Component rendimentoBox;
-    @SuppressWarnings("rawtypes")
-    private JComboBox annoBox;
-    @SuppressWarnings("rawtypes")
-    private JComboBox terrenoBox;
     private DefaultTableModel terreniTableModel;
-    @SuppressWarnings("rawtypes")
-    private JComboBox terreno1Box;
-    private Component pianta3Box;
-    private Component data3Box;
-    private Component data1Box;
     private Component terreniTable;
-    private Component pianta2Box;
-    private Component terrreno1Box;
-    private Component pianta1Box;
-    @SuppressWarnings("rawtypes")
-    private JComboBox data2Box;
     private JButton aggiungiCicli;
+    private LandCultivationDAO lc;
+    private MinimumYieldDAO my;
+    private PlantAssignmentDAO pa;
+    private UsedVehiclesDAO uv;
+    private JTextField terrenoField;
+    private JTextField annoField;
+    private JTextField rendimentoField;
+    private JTextField cicloField;
+    private JTextField data1Field;
+    private JTextField data2Field;
+    private JTextField data3Field;
+    private JTextField pianta1Field;
+    private JTextField pianta2Field;
+    private JTextField pianta3Field;
+    private JTextField terreno1Field;
+    private JTextField anno1Field;
+    private JTextField nomeField;
+    private JTextField unita;
+    private JTextField descrizione;
+    private JTextField vendita;
+    private JTextField ciclo1;
 
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public ManagerView() {
         initializeGUI();
     }
@@ -67,16 +79,19 @@ public class ManagerView extends JPanel {
         JPanel pianta = new JPanel(new BorderLayout(10, 10));
         JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 10));
 
-        formPanel.add(new JLabel("Terreno:"));
-        terrenoBox = new JComboBox<>();
-        formPanel.add(terrenoBox);
+        formPanel.add(new JLabel("ID_Terreno:"));
+        terrenoField = new JTextField();
+        formPanel.add(terrenoField);
 
         formPanel.add(new JLabel("Anno:"));
-        annoBox = new JComboBox<>();
-        formPanel.add(annoBox);
+        annoField = new JTextField();
+        formPanel.add(annoField);
 
         JPanel btnPanel = new JPanel();
         visualizzaPiante = new JButton("Visualizza Piante Coltivate");
+        visualizzaPiante.addActionListener(e -> {
+            lc.coltureInTerrenoAnno(getTerreno(), getAnno());
+        });
         btnPanel.add(visualizzaPiante);
   
         pianta.add(formPanel, BorderLayout.NORTH);
@@ -95,11 +110,14 @@ public class ManagerView extends JPanel {
         JPanel formPanel = new JPanel(new GridLayout(1, 1, 5, 5));
 
         formPanel.add(new JLabel("Pianta:"));
-        rendimentoBox = new JComboBox<>();
-        formPanel.add(rendimentoBox);
+        nomeField = new JTextField();
+        formPanel.add(nomeField);
 
         JPanel btnPanel = new JPanel();
         visualizzaRendimenti = new JButton("Visualizza Terreni con Rendimento minimo");
+        visualizzaRendimenti.addActionListener(e -> {
+           my.terreniConRendimentoMin(getNome());
+        });
         btnPanel.add(visualizzaRendimenti);
   
         rendimento.add(formPanel, BorderLayout.NORTH);
@@ -116,32 +134,42 @@ public class ManagerView extends JPanel {
         JPanel terreni = new JPanel();
         JPanel formPanel = new JPanel(new GridLayout(7, 2, 10, 10));
 
-        formPanel.add(new JLabel("Terreno:"));
-        terreno1Box = new JComboBox<>();
-        formPanel.add(terrreno1Box);
-
-        formPanel.add(new JLabel("Pianta1:"));
-        pianta1Box = new JComboBox<>();
-        formPanel.add(pianta1Box);
-        formPanel.add(new JLabel("Pianta2:"));
-        pianta2Box = new JComboBox<>();
-        formPanel.add(pianta2Box);
-        formPanel.add(new JLabel("Pianta3:"));
-        pianta3Box = new JComboBox<>();
-        formPanel.add(pianta3Box);
-
-        formPanel.add(new JLabel("Data1:"));
-        data1Box = new JComboBox<>();
-        formPanel.add(data1Box);
-        formPanel.add(new JLabel("Data2:"));
-        data2Box = new JComboBox<>();
-        formPanel.add(data2Box);
-        formPanel.add(new JLabel("Data3:"));
-        data3Box = new JComboBox<>();
-        formPanel.add(data3Box);
-
+        formPanel.add(new JLabel("ID_Ciclo:"));
+        ciclo1 = new JTextField();
+        formPanel.add(ciclo1);
+        formPanel.add(new JLabel("ID_Terreno:"));
+        terreno1Field = new JTextField();
+        formPanel.add(terreno1Field);
+        formPanel.add(new JLabel("ID_Pianta:"));
+        pianta1Field = new JTextField();
+        formPanel.add(pianta1Field);
+        formPanel.add(new JLabel("Anno:"));
+        anno1Field = new JTextField();
+        formPanel.add(anno1Field);
+        formPanel.add(new JLabel("DataInizio:"));
+        data1Field = new JTextField();
+        formPanel.add(data1Field);
+        formPanel.add(new JLabel("DataFine:"));
+        data2Field = new JTextField();
+        formPanel.add(data2Field);
+        formPanel.add(new JLabel("Rendimento:"));
+        rendimentoField = new JTextField();
+        formPanel.add(rendimentoField);
+        formPanel.add(new JLabel("Unità Misura:"));
+        unita = new JTextField();
+        formPanel.add(unita);
+        formPanel.add(new JLabel("Descrizione:"));
+        descrizione = new JTextField();
+        formPanel.add(descrizione);
+        formPanel.add(new JLabel("ID_Vendita:"));
+        vendita = new JTextField();
+        formPanel.add(vendita);
+        
         JPanel btnPanel = new JPanel();
         aggiungiCicli = new JButton("Aggiungi Cicli");
+        aggiungiCicli.addActionListener(e -> {
+            pa.assegnaTerrenoAColtura( getCiclo1(), getAnno1(), getDataIn(), getDataF(), getRendimento(), getUnita(), getDesc(), getTerreno1(), getPianta(), getVendita());
+        });
         btnPanel.add(aggiungiCicli);
   
         terreni.add(formPanel, BorderLayout.NORTH);
@@ -154,16 +182,43 @@ public class ManagerView extends JPanel {
         terreni.add(new JScrollPane(terreniTable), BorderLayout.CENTER);
         return terreni;
     }
+    private int getPianta() {
+        return Integer.parseInt(pianta1Field.getText());
+    }
+    private int getTerreno1() {
+        return Integer.parseInt(terreno1Field.getText());
+    }
+    private String getDesc() {
+        return descrizione.getText();
+    }
+    private String getUnita() {
+        return unita.getText();
+    }
+    private int getRendimento() {
+        return Integer.parseInt(rendimentoField.getText());
+    }
+    private LocalDate getDataF() {
+        return LocalDate.parse(data1Field.getText());
+    }
+    private LocalDate getDataIn() {
+        return LocalDate.parse(data2Field.getText());
+    }
+    private int getCiclo1() {
+        return Integer.parseInt(ciclo1.getText());
+    }
     private JPanel createMacchinaPanel() {
         JPanel visualizza = new JPanel(new BorderLayout(10, 10));
         JPanel formPanel = new JPanel(new GridLayout(1, 2, 10, 10));
 
         formPanel.add(new JLabel("Ciclo Colturale:"));
-        cicloBox = new JComboBox<>();
-        formPanel.add(cicloBox);
+        cicloField = new JTextField();
+        formPanel.add(cicloField);
 
         JPanel btnPanel = new JPanel();
         visualizzaLista = new JButton("Visualizza Macchinari Usati");
+        visualizzaLista.addActionListener(e -> {
+            uv.macchinariUsatiInCiclo(getCiclo());
+        });
         btnPanel.add(visualizzaLista);
   
         visualizza.add(formPanel, BorderLayout.NORTH);
@@ -176,6 +231,22 @@ public class ManagerView extends JPanel {
         visualizza.add(new JScrollPane(macchinariTable), BorderLayout.CENTER);
 
         return visualizza;
+    }
+
+    private int getTerreno() {
+        return Integer.parseInt(terrenoField.getText());
+    }
+
+    private int getAnno() {
+        return Integer.parseInt(annoField.getText());
+    }
+
+    private String getNome() {
+        return nomeField.getText();
+    }
+
+    private int getCiclo() {
+        return Integer.parseInt(cicloField.getText());
     }
 
     public JTabbedPane getTabbedPane() {
@@ -194,5 +265,12 @@ public class ManagerView extends JPanel {
             frame.setLocationRelativeTo(null); // centra la finestra
             frame.setVisible(true);
         });
+    }
+
+    private int getVendita() {
+        return Integer.parseInt(vendita.getText());
+    }
+    private int getAnno1() {
+        return Integer.parseInt(anno1Field.getText());
     }
 }

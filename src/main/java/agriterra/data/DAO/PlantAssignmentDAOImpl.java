@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import agriterra.data.api.PlantAssignmentDAO;
 import agriterra.data.utils.DAOException;
@@ -14,14 +15,15 @@ public class PlantAssignmentDAOImpl implements PlantAssignmentDAO{
     public PlantAssignmentDAOImpl(Connection conn) {
         this.conn = conn;
     }
+    
     @Override
-    public void assegnaTerrenoAColtura(int ID_Ciclo, int anno, Date data_inizio, Date data_fine, int rendimento, String unità_misura, String descrizione, int ID_Terreno, int ID_Pianta, int ID_Vendita) {
+    public void assegnaTerrenoAColtura(int ID_Ciclo, int anno, LocalDate data_inizio, LocalDate data_fine, int rendimento, String unità_misura, String descrizione, int ID_Terreno, int ID_Pianta, int ID_Vendita) {
         String sql = "INSERT INTO Coltivazione(ID_Ciclo, anno, data_inizio, data_fine, rendimento, unità_misura, descrizione, ID_Terreno, ID_Pianta, ID_Vendita) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setInt(1, ID_Ciclo);
             st.setInt(2, anno);
-            st.setDate(3, data_inizio);
-            st.setDate(4, data_fine);
+            st.setDate(3, Date.valueOf(data_inizio));
+            st.setDate(4, Date.valueOf(data_fine));
             st.setDouble(5, rendimento);
             st.setString(6, unità_misura);
             st.setString(7, descrizione);
