@@ -46,10 +46,7 @@ public class ManagerView extends JPanel {
     private JTextField cicloField;
     private JTextField data1Field;
     private JTextField data2Field;
-    private JTextField data3Field;
     private JTextField pianta1Field;
-    private JTextField pianta2Field;
-    private JTextField pianta3Field;
     private JTextField terreno1Field;
     private JTextField anno1Field;
     private JTextField nomeField;
@@ -73,6 +70,7 @@ public class ManagerView extends JPanel {
         tabbedPane.addTab("Piante", createPiantePanel());
 
         add(tabbedPane, BorderLayout.CENTER);
+        setVisible(true);
     }
 
     private JPanel createPiantePanel() {
@@ -132,7 +130,7 @@ public class ManagerView extends JPanel {
     }
     private JPanel createTerreniPanel() {
         JPanel terreni = new JPanel();
-        JPanel formPanel = new JPanel(new GridLayout(7, 2, 10, 10));
+        JPanel formPanel = new JPanel(new GridLayout(10, 2, 10, 10));
 
         formPanel.add(new JLabel("ID_Ciclo:"));
         ciclo1 = new JTextField();

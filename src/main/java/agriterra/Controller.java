@@ -31,24 +31,38 @@ public class Controller {
         String password = view.getPassword();
 
         if ("admin".equals(username) && "admin123".equals(password)) {
-            openRoleFrame("Pannello Amministratore", new AdminView());
+            AdminView admin = new AdminView();
+            admin.initializeGUI();
+            JFrame adminFrame = new JFrame("Pannello Amministratore");
+            adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            adminFrame.setContentPane(admin);
+            adminFrame.setSize(900, 600);
+            adminFrame.setLocationRelativeTo(null);
+            adminFrame.setVisible(true);
+            view.hide();
         } else if ("vendite".equals(username) && "vendite123".equals(password)) {
-            openRoleFrame("Pannello Vendite", new SellerView());
+            SellerView seller = new SellerView();
+            seller.initializeGUI();
+            JFrame sellerFrame = new JFrame("Pannello Amministratore");
+            sellerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            sellerFrame.setContentPane(seller);
+            sellerFrame.setSize(900, 600);
+            sellerFrame.setLocationRelativeTo(null);
+            sellerFrame.setVisible(true);
+            view.hide();
         } else if ("campo".equals(username) && "campo123".equals(password)) {
-            openRoleFrame("Pannello Responsabile Terreno", new ManagerView());
+            ManagerView manager = new ManagerView();
+            manager.initializeGUI();
+            JFrame manFrame = new JFrame("Pannello Amministratore");
+            manFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            manFrame.setContentPane(manager);
+            manFrame.setSize(900, 600);
+            manFrame.setLocationRelativeTo(null);
+            manFrame.setVisible(true);
+            view.hide();
         } else {
             JOptionPane.showMessageDialog(null, "Username o password errati", "Login fallito", JOptionPane.ERROR_MESSAGE);
             this.view.clearFields();
         }
-    }
-
-    private void openRoleFrame(String title, javax.swing.JPanel panel) {
-        this.view.setVisible(false);
-        JFrame frame = new JFrame(title);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setContentPane(panel);
-        frame.setSize(900, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
     }
 }

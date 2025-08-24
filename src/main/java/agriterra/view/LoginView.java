@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 import agriterra.Controller;
+import agriterra.model.Model;
 
 public class LoginView extends JFrame {
     private Controller controller;
@@ -127,6 +128,10 @@ public class LoginView extends JFrame {
         loginButton.setBorder(BorderFactory.createRaisedBevelBorder());
         loginButton.setSize(new Dimension(200, 35));
         loginButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        loginButton.addActionListener( e -> {
+            controller.check();
+            clearFields();
+        });
         
         gbc.gridx = 0;
         gbc.gridy = 5;
@@ -192,13 +197,7 @@ public class LoginView extends JFrame {
     }
     
     // Metodo per aggiungere listener al pulsante login
-    public void addLoginListener() {
-        loginButton.addActionListener( e -> {
-            controller.check();
-            clearFields();
-        });
-    }
-
+  
     public void setController(Controller controller) {
         this.controller = controller;
     }
@@ -217,9 +216,10 @@ public class LoginView extends JFrame {
     // Metodo main per test della view
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            
-            LoginView loginView = new LoginView(); 
-            loginView.display();
-        });
+            Model model = new Model() {};
+        LoginView loginView = new LoginView();
+        loginView.setController(new Controller(model, loginView)); // 🔴 collega controller e view
+        loginView.display();
+    });
     }
 }

@@ -48,6 +48,7 @@ public class SellerView extends JPanel {
         tabbedPane.addTab("Vendite", createVenditePanel());
 
         add(tabbedPane, BorderLayout.CENTER);
+        setVisible(true);
     }
 
     private JPanel createClientiPanel() {
@@ -83,7 +84,7 @@ public class SellerView extends JPanel {
         calcolaVenditeBtn.addActionListener(e -> {
             sc.calcoloVenditeAnnue(getAnnoVendite());
         });
-        form.add(calcolaVenditeBtn);
+        panel.add(calcolaVenditeBtn, BorderLayout.SOUTH);
 
         venditeTableModel = new DefaultTableModel(new Object[]{"Prodotto", "Quantità", "Ricavo"}, 0);
         venditeTable = new JTable(venditeTableModel);

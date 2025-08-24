@@ -70,6 +70,7 @@ public class AdminView extends JPanel {
         tabbedPane.addTab("Manutenzioni", createManutenzionePanel());
 
         add(tabbedPane, BorderLayout.CENTER);
+        setVisible(true);
     }
 
     private JPanel createAssegnaMacchinaPanel() {
