@@ -1,10 +1,13 @@
-package agriterra.data.DAO;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import agriterra.data.api.VehicleAssignmentDAO;
 import agriterra.data.utils.DAOException;
@@ -20,7 +23,7 @@ public class VehicleAssignmentDAOImpl implements VehicleAssignmentDAO {
 
     @Override
     public void assegnaDipendenteAMacchina(String CF, String ID_Macchinario, LocalDate data, String note) {
-        String sql = "INSERT INTO AssegnazioneMacchinario(CF, ID_Macchinario, data, note) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Assegnazione_Macchinario(CF, ID_Macchinario, data, note) VALUES (?, ?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, CF);
             st.setString(2, ID_Macchinario);
@@ -30,5 +33,29 @@ public class VehicleAssignmentDAOImpl implements VehicleAssignmentDAO {
         } catch (SQLException e) {
             throw new DAOException("Errore assegnazione dipendente a macchina", e);
         }
+    }
+
+    public List<String> assegnazioni() {
+        List<String> result = new ArrayList<>();
+        String sql = """
+                SELECT A.CF, A.ID_Macchinario, A.data, A.note
+                FROM Assegnazione_Macchinario A
+                """;
+        try (PreparedStatement st = conn.prepareStatement(sql)) {
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                result.add(
+                    rs.getString("ID_Trattamento") + ";" +
+                    rs.getDate("data") + ";" +
+                    rs.getInt("qta") + ";" +
+                    rs.getString("tipo") + ";" +
+                    rs.getString("descrizione") + ";" +
+                    rs.getInt("ID_Spesa")
+                );
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Errore nel recupero della lista completa trattamenti", e);
+        }    
+        return result;
     }
 }

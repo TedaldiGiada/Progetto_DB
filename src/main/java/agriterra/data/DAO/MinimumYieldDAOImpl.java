@@ -1,4 +1,4 @@
-package agriterra.data.DAO;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +34,7 @@ public class MinimumYieldDAOImpl implements MinimumYieldDAO{
             st.setString(1, nome);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                result.add("Terreno:" + rs.getString("ID_Terreno") + " rendimento: " + rs.getDouble("rendimento"));
+                result.add(rs.getInt("ID_Terreno") + ";" + rs.getDouble("rendimento"));
             }
         } catch (SQLException e) {
             throw new DAOException("Errore ricerca terreni minimi", e);

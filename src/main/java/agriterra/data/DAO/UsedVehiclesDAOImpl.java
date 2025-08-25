@@ -1,4 +1,4 @@
-package agriterra.data.DAO;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +23,7 @@ public class UsedVehiclesDAOImpl implements UsedVehiclesDAO{
     public List<String> macchinariUsatiInCiclo(int ID_Ciclo) {
     List<String> result = new ArrayList<>();
     String sql = """
-        SELECT M:ID_Macchinario, M.nome, M.marca_modello
+        SELECT M.ID_Macchinario, M.nome, M.marca_modello
         FROM Macchinario M
         JOIN UtilizzoMacchinario UM ON UM.ID_Macchinario = M.ID_Macchinario
         WHERE UM.ID_Ciclo = ?
@@ -32,7 +32,9 @@ public class UsedVehiclesDAOImpl implements UsedVehiclesDAO{
         st.setInt(1, ID_Ciclo);
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
-            result.add(rs.getString("ID_Macchinario") + "-" + rs.getString("nome") + " - " + rs.getString("marca_modello"));
+            result.add(rs.getString("ID_Macchinario") 
+            + ";" + rs.getString("nome") 
+            + ";" + rs.getString("marca_modello"));
         }
     } catch (SQLException e) {
         throw new DAOException("Errore caricamento macchinari ciclo", e);

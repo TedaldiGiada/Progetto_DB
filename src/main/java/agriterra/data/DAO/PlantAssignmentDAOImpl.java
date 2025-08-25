@@ -1,9 +1,12 @@
-package agriterra.data.DAO; 
+package agriterra.data.dao; 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import agriterra.data.api.PlantAssignmentDAO;
 import agriterra.data.utils.DAOException;
@@ -34,5 +37,33 @@ public class PlantAssignmentDAOImpl implements PlantAssignmentDAO{
         } catch (SQLException e) {
             throw new DAOException("Errore assegnazione coltura al terreno", e);
         }
+    }
+
+    @Override
+    public List<String> cicli() {
+        List<String> result = new ArrayList<>();
+        String sql = """
+            SELECT C.ID_Ciclo, C.anno, C.data_inizio, 
+                   C.data_fine, C.rendimento, C.unità_misura, 
+                   C.descrizione, C.ID_Terreno, C.ID_Pianta
+            FROM  Ciclo_Colturale C
+        """;
+        try (PreparedStatement st = conn.prepareStatement(sql)) {
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                result.add(rs.getInt("ID_Ciclo") 
+                + ";" + rs.getInt("anno")
+                + ";" + rs.getDate("data_inizio") 
+                + ";" + rs.getDate("data_fine")
+                + ";" + rs.getInt("rendimento") 
+                + ";" + rs.getString("unità_misura") 
+                + ";" + rs.getString("descrizione") 
+                + ";" + rs.getInt("ID_Terreno") 
+                + ";" + rs.getInt("ID_Pianta"));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Errore caricamento colture terreno", e);
+        }
+        return result;
     }
 }

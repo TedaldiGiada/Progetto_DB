@@ -3,7 +3,10 @@ package agriterra.view;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.sql.Connection;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +23,11 @@ import agriterra.data.api.LandCultivationDAO;
 import agriterra.data.api.MinimumYieldDAO;
 import agriterra.data.api.PlantAssignmentDAO;
 import agriterra.data.api.UsedVehiclesDAO;
+import agriterra.data.dao.LandCultivationDAOImpl;
+import agriterra.data.dao.MinimumYieldDAOImpl;
+import agriterra.data.dao.PlantAssignmentDAOImpl;
+import agriterra.data.dao.UsedVehiclesDAOImpl;
+import agriterra.model.DBModel;
 
 public class ManagerView extends JPanel {
     
@@ -36,10 +44,10 @@ public class ManagerView extends JPanel {
     private DefaultTableModel terreniTableModel;
     private Component terreniTable;
     private JButton aggiungiCicli;
-    private LandCultivationDAO lc;
-    private MinimumYieldDAO my;
-    private PlantAssignmentDAO pa;
-    private UsedVehiclesDAO uv;
+    private final LandCultivationDAO lc;
+    private final MinimumYieldDAO my;
+    private final PlantAssignmentDAO pa;
+    private final UsedVehiclesDAO uv;
     private JTextField terrenoField;
     private JTextField annoField;
     private JTextField rendimentoField;
@@ -54,9 +62,17 @@ public class ManagerView extends JPanel {
     private JTextField descrizione;
     private JTextField vendita;
     private JTextField ciclo1;
+    private final Connection c;
+    private DBModel db;
+    private List<String> lista, lista1, lista2, lista3;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public ManagerView() {
+        c = db.getConnection();
+        uv = new UsedVehiclesDAOImpl(c);
+        pa = new PlantAssignmentDAOImpl(c);
+        my = new MinimumYieldDAOImpl(c);
+        lc = new LandCultivationDAOImpl(c);
         initializeGUI();
     }
     public void initializeGUI() {
@@ -85,10 +101,17 @@ public class ManagerView extends JPanel {
         annoField = new JTextField();
         formPanel.add(annoField);
 
+        lista = new ArrayList<>();
         JPanel btnPanel = new JPanel();
         visualizzaPiante = new JButton("Visualizza Piante Coltivate");
         visualizzaPiante.addActionListener(e -> {
-            lc.coltureInTerrenoAnno(getTerreno(), getAnno());
+            lista.clear();
+            lista = lc.coltureInTerrenoAnno(getTerreno(), getAnno());
+            pianteTableModel.setRowCount(0);
+            for (String p : lista) {
+                String[] parts = p.split(";");
+                pianteTableModel.addRow(parts);
+            }
         });
         btnPanel.add(visualizzaPiante);
   
@@ -96,7 +119,7 @@ public class ManagerView extends JPanel {
         pianta.add(btnPanel, BorderLayout.SOUTH);
 
         pianteTableModel = new DefaultTableModel(
-                new Object[]{"Nome", "Tipo", "Descrizione"}, 0);
+                new Object[]{"ID_Pianta", "Nome"}, 0);
         pianteTable = new JTable(pianteTableModel);
 
         pianta.add(new JScrollPane(pianteTable), BorderLayout.CENTER);
@@ -111,10 +134,17 @@ public class ManagerView extends JPanel {
         nomeField = new JTextField();
         formPanel.add(nomeField);
 
+        lista1 = new ArrayList<>();
         JPanel btnPanel = new JPanel();
         visualizzaRendimenti = new JButton("Visualizza Terreni con Rendimento minimo");
         visualizzaRendimenti.addActionListener(e -> {
-           my.terreniConRendimentoMin(getNome());
+            lista1.clear();
+            lista1 = my.terreniConRendimentoMin(getNome());
+            rendimentiTableModel.setRowCount(0);
+            for (String r : lista1) {
+                String[] parts = r.split(";");
+                rendimentiTableModel.addRow(parts);
+            }
         });
         btnPanel.add(visualizzaRendimenti);
   
@@ -122,7 +152,7 @@ public class ManagerView extends JPanel {
         rendimento.add(btnPanel, BorderLayout.SOUTH);
 
         rendimentiTableModel = new DefaultTableModel(
-                new Object[]{"ID_Terreno"}, 0);
+                new Object[]{"ID_Terreno", "Rendimento"}, 0);
         rendimentiTable = new JTable(rendimentiTableModel);
 
         rendimento.add(new JScrollPane(rendimentiTable), BorderLayout.CENTER);
@@ -163,10 +193,18 @@ public class ManagerView extends JPanel {
         vendita = new JTextField();
         formPanel.add(vendita);
         
+        lista2 = new ArrayList<>();
         JPanel btnPanel = new JPanel();
         aggiungiCicli = new JButton("Aggiungi Cicli");
         aggiungiCicli.addActionListener(e -> {
+            lista2.clear();
             pa.assegnaTerrenoAColtura( getCiclo1(), getAnno1(), getDataIn(), getDataF(), getRendimento(), getUnita(), getDesc(), getTerreno1(), getPianta(), getVendita());
+            lista2 = pa.cicli();
+            terreniTableModel.setRowCount(0);
+            for (String t : lista2) {
+                String[] parts = t.split(";");
+                terreniTableModel.addRow(parts);
+            }
         });
         btnPanel.add(aggiungiCicli);
   
@@ -212,10 +250,17 @@ public class ManagerView extends JPanel {
         cicloField = new JTextField();
         formPanel.add(cicloField);
 
+        lista3 = new ArrayList<>();
         JPanel btnPanel = new JPanel();
         visualizzaLista = new JButton("Visualizza Macchinari Usati");
         visualizzaLista.addActionListener(e -> {
-            uv.macchinariUsatiInCiclo(getCiclo());
+            lista3.clear();
+            lista3 = uv.macchinariUsatiInCiclo(getCiclo());
+            macchinariTableModel.setRowCount(0);
+            for (String m : lista3) {
+                String[] parts = m.split(";");
+                macchinariTableModel.addRow(parts);
+            }
         });
         btnPanel.add(visualizzaLista);
   
@@ -223,7 +268,7 @@ public class ManagerView extends JPanel {
         visualizza.add(btnPanel, BorderLayout.SOUTH);
 
         macchinariTableModel = new DefaultTableModel(
-                new Object[]{"ID_Macchinario", "Marca/Modello", "Nome", "Categoria", "Descrizione"}, 0);
+                new Object[]{"ID_Macchinario", "Nome", "Marca/Modello"}, 0);
         macchinariTable = new JTable(macchinariTableModel);
 
         visualizza.add(new JScrollPane(macchinariTable), BorderLayout.CENTER);

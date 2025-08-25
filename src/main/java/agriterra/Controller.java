@@ -32,7 +32,6 @@ public class Controller {
 
         if ("admin".equals(username) && "admin123".equals(password)) {
             AdminView admin = new AdminView();
-            admin.initializeGUI();
             JFrame adminFrame = new JFrame("Pannello Amministratore");
             adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             adminFrame.setContentPane(admin);
@@ -42,7 +41,6 @@ public class Controller {
             view.hide();
         } else if ("vendite".equals(username) && "vendite123".equals(password)) {
             SellerView seller = new SellerView();
-            seller.initializeGUI();
             JFrame sellerFrame = new JFrame("Pannello Amministratore");
             sellerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             sellerFrame.setContentPane(seller);
@@ -52,7 +50,6 @@ public class Controller {
             view.hide();
         } else if ("campo".equals(username) && "campo123".equals(password)) {
             ManagerView manager = new ManagerView();
-            manager.initializeGUI();
             JFrame manFrame = new JFrame("Pannello Amministratore");
             manFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             manFrame.setContentPane(manager);

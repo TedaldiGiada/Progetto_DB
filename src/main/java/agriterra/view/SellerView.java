@@ -2,6 +2,9 @@ package agriterra.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +19,9 @@ import javax.swing.table.DefaultTableModel;
 
 import agriterra.data.api.CustomerListDAO;
 import agriterra.data.api.SalesCalculationDAO;
+import agriterra.data.dao.CustomerListDAOImpl;
+import agriterra.data.dao.SalesCalculationDAOImpl;
+import agriterra.model.DBModel;
 
 public class SellerView extends JPanel {
 
@@ -24,8 +30,8 @@ public class SellerView extends JPanel {
     public JTable clientiTable;
     public DefaultTableModel clientiTableModel;
     public JButton refreshClientiBtn;
-    private SalesCalculationDAO sc;
-    private CustomerListDAO cl;
+    private final SalesCalculationDAO sc;
+    private final CustomerListDAO cl;
     public JButton calcolaVenditeBtn;
     public JTable venditeTable;
     public DefaultTableModel venditeTableModel;
@@ -34,9 +40,15 @@ public class SellerView extends JPanel {
     public DefaultTableModel veicoliUsatiTableModel;
     private JTextField anno;;
     private JTextField annoVenditeField;
+    private final Connection c;
+    private DBModel db;
+    private List<String> lista, lista1;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public SellerView() {
+        c = db.getConnection();
+        cl = new CustomerListDAOImpl(c);
+        sc = new SalesCalculationDAOImpl(c);
         initializeGUI();
     }
 
@@ -52,12 +64,19 @@ public class SellerView extends JPanel {
     }
 
     private JPanel createClientiPanel() {
+        lista = new ArrayList<>();
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         JPanel top = new JPanel(new GridLayout(2, 1, 10, 10));
         JPanel btm = new JPanel();
         refreshClientiBtn = new JButton("Lista Clienti Annui");
         refreshClientiBtn.addActionListener(e -> {
-            cl.listaCompratoriAnnui(getAnno());
+            lista.clear();
+            lista = cl.listaCompratoriAnnui(getAnno());
+            clientiTableModel.setRowCount(0);
+            for (String cliente : lista) {
+                String[] parts = cliente.split(";");
+                clientiTableModel.addRow(parts);
+            }
         });
         top.add(new JLabel("Anno:"));
         anno= new JTextField();
@@ -65,7 +84,7 @@ public class SellerView extends JPanel {
         top.add(new JLabel("Elenco clienti"));
         btm.add(refreshClientiBtn);
 
-        clientiTableModel = new DefaultTableModel(new Object[]{"CF", "Nome", "Cognome", "Telefono", "Città"}, 0);
+        clientiTableModel = new DefaultTableModel(new Object[]{"CF", "Nome", "Cognome"}, 0);
         clientiTable = new JTable(clientiTableModel);
 
         panel.add(top, BorderLayout.NORTH);
@@ -75,6 +94,7 @@ public class SellerView extends JPanel {
     }
 
     private JPanel createVenditePanel() {
+        lista1 = new ArrayList<>();
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         JPanel form = new JPanel(new GridLayout(1, 3, 10, 10));
         form.add(new JLabel("Anno:"));
@@ -82,11 +102,17 @@ public class SellerView extends JPanel {
         form.add(annoVenditeField);
         calcolaVenditeBtn = new JButton("Calcola Vendite");
         calcolaVenditeBtn.addActionListener(e -> {
-            sc.calcoloVenditeAnnue(getAnnoVendite());
+            lista1.clear();
+            lista1 = sc.calcoloVenditeAnnue(getAnnoVendite());
+            venditeTableModel.setRowCount(0);
+            for (String vendite : lista1) {
+                String[] parts = vendite.split(";");
+                venditeTableModel.addRow(parts);
+            }
         });
         panel.add(calcolaVenditeBtn, BorderLayout.SOUTH);
 
-        venditeTableModel = new DefaultTableModel(new Object[]{"Prodotto", "Quantità", "Ricavo"}, 0);
+        venditeTableModel = new DefaultTableModel(new Object[]{"Ricavo Totale"}, 0);
         venditeTable = new JTable(venditeTableModel);
 
         panel.add(form, BorderLayout.NORTH);

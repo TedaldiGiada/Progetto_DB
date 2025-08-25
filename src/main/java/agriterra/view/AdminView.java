@@ -2,7 +2,10 @@ package agriterra.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.sql.Connection;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +22,11 @@ import agriterra.data.api.AnnualTreatmentsDAO;
 import agriterra.data.api.MaintenanceRegistrationDAO;
 import agriterra.data.api.RegistrationEmployeeDAO;
 import agriterra.data.api.VehicleAssignmentDAO;
+import agriterra.data.dao.AnnualTreatmentsDAOImpl;
+import agriterra.data.dao.MaintenanceRegistrationDAOImpl;
+import agriterra.data.dao.RegistrationEmployeeDAOImpl;
+import agriterra.data.dao.VehicleAssignmentDAOImpl;
+import agriterra.model.DBModel;
 
 public class AdminView extends JPanel {
 
@@ -40,13 +48,13 @@ public class AdminView extends JPanel {
     public JButton assegnaMacchinaBtn, refreshAssegnazioniBtn;
     public JTable assegnazioniTable;
     public DefaultTableModel assegnazioniTableModel;
-    private RegistrationEmployeeDAO re;
-    private MaintenanceRegistrationDAO mr;
-    private VehicleAssignmentDAO va;
+    private final RegistrationEmployeeDAO re;
+    private final MaintenanceRegistrationDAO mr;
+    private final VehicleAssignmentDAO va;
     private JButton visualizzaTratt;
     private DefaultTableModel trattTableModel;
     private JTable trattTable;
-    private AnnualTreatmentsDAO at;
+    private final AnnualTreatmentsDAO at;
     private JTextField dipendenteField;
     private JTextField macchinaField;
     private JTextField manutMacchinaField;
@@ -54,9 +62,17 @@ public class AdminView extends JPanel {
     private JTextField spesaField;
     private JTextField macchinarioField;
     private JTextField aziendaField;
+    private final Connection c;
+    private DBModel db;
+    private List<String> lista, lista1, lista2, lista3;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public AdminView() {
+        c = db.getConnection();
+        at = new AnnualTreatmentsDAOImpl(c);
+        va = new VehicleAssignmentDAOImpl(c);
+        mr = new MaintenanceRegistrationDAOImpl(c);
+        re = new RegistrationEmployeeDAOImpl(c);
         initializeGUI();
     }
     public void initializeGUI() {
@@ -93,9 +109,17 @@ public class AdminView extends JPanel {
         formPanel.add(noteAssegnazioneField);
 
         JPanel btnPanel = new JPanel();
+        lista = new ArrayList<>();
         assegnaMacchinaBtn = new JButton("Assegna Macchina");
         assegnaMacchinaBtn.addActionListener(e -> {
+            lista.clear();
             va.assegnaDipendenteAMacchina(getDipendenteField(), getMacchinaField(), getDataAssegnazioneField(), getNoteAssegnazioneField());
+            lista = va.assegnazioni();
+            assegnazioniTableModel.setRowCount(0);
+            for (String a : lista) {
+                String[] parts = a.split(";");
+                assegnazioniTableModel.addRow(parts);
+            }
         });
         
         btnPanel.add(assegnaMacchinaBtn);
@@ -131,15 +155,22 @@ public class AdminView extends JPanel {
         form.add(new JLabel("Tipo:")); form.add(tipoManutField);
         form.add(new JLabel("ID_Spesa:")); form.add(spesaField);
         
-
+        lista1 = new ArrayList<>();
         registraManutBtn = new JButton("Registra");
         registraManutBtn.addActionListener(e -> {
-            mr.registraManutenzione(getManutMacchinaField(), getAzienda(), getDescrizioneManutField(), getTipoManutField(), getMacchinario(), getSpesa());
+            lista1.clear();
+            mr.registraManutenzione(getManutMacchinaField(), getAzienda(), getDescrizioneManutField(), getTipoManutField(), getSpesa(), getMacchinario());
+            lista1 = mr.manutenzioni();
+            manutenzioniTableModel.setRowCount(0);
+            for (String m : lista1) {
+                String[] parts = m.split(";");
+                manutenzioniTableModel.addRow(parts);
+            }
         });
         JPanel btnPanel = new JPanel();
         btnPanel.add(registraManutBtn);
 
-        manutenzioniTableModel = new DefaultTableModel(new Object[]{"ID", "Macchina", "Descrizione", "Costo", "Data", "Tipo"}, 0);
+        manutenzioniTableModel = new DefaultTableModel(new Object[]{"ID", "Azienda", "Descrizione", "Tipo", "ID_Spesa", "ID_Macchinario"}, 0);
         manutenzioniTable = new JTable(manutenzioniTableModel);
 
         panel.add(form, BorderLayout.NORTH);
@@ -155,9 +186,16 @@ public class AdminView extends JPanel {
         form.add(new JLabel("Anno:"));
         annoField = new JTextField();
         form.add(annoField);
+        lista2 = new ArrayList<>();
         visualizzaTratt = new JButton("Visualizza Trattamenti Annui");
         visualizzaTratt.addActionListener(e -> {
-           at.listaTrattamentiAnnui(getAnnoTrattamentoField());
+            lista2.clear();
+            lista2 = at.listaTrattamentiAnnui(getAnnoTrattamentoField());
+            trattamentiTableModel.setRowCount(0);
+            for (String t : lista2) {
+                String[] parts = t.split(";");
+                trattamentiTableModel.addRow(parts);
+            }
         });
         form.add(visualizzaTratt);
 
@@ -206,10 +244,18 @@ public class AdminView extends JPanel {
         noteField = new JTextField();
         formPanel.add(noteField);
 
+        lista3 = new ArrayList<>();
         JPanel btnPanel = new JPanel();
         salvaDipBtn = new JButton("Registra Dipendente");
         salvaDipBtn.addActionListener(e -> {
-            re.registraDipendente(getCfField(), getNomeField(), getCognomeField(), getTelefonoField(), getViaField(), getNumCivField(), getCittaField(), getNomeField());
+            lista3.clear();
+            re.registraDipendente(getCfField(), getNomeField(), getCognomeField(), getTelefonoField(), getViaField(), getNumCivField(), getCittaField(), getNoteField());
+            lista3 = re.listaDipendenti();
+            dipendentiTableModel.setRowCount(0);
+            for (String d : lista3) {
+                String[] parts = d.split(";");
+                dipendentiTableModel.addRow(parts);
+            }
         });
         btnPanel.add(salvaDipBtn);
 
@@ -241,11 +287,11 @@ public class AdminView extends JPanel {
         return descrizioneManutField.getText();
     }
 
-     private String getSpesa() {
-        return spesaField.getText();
+     private int getSpesa() {
+        return Integer.parseInt(spesaField.getText());
     }
-    private int getMacchinario() {
-        return Integer.parseInt(macchinarioField.getText()); 
+    private String getMacchinario() {
+        return macchinarioField.getText(); 
     }
     private String getAzienda() {
         return aziendaField.getText();
@@ -275,8 +321,8 @@ public class AdminView extends JPanel {
         return viaField.getText();
     }
 
-    public String getNumCivField() {
-        return numCivField.getText();
+    public int getNumCivField() {
+        return Integer.parseInt(numCivField.getText());
     }
 
     public String getCittaField() {

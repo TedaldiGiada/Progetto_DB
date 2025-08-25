@@ -1,4 +1,4 @@
-package agriterra.data.DAO;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,12 +31,12 @@ public class AnnualTreatmentsDAOImpl implements AnnualTreatmentsDAO{
             st.setInt(1, anno);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                result.add("ID: " + rs.getString ("ID_Trattamento")
-                        + "Data: " + rs.getDate("data")
-                        + "Quantità: " + rs.getString("qta")
-                        + "Tipo: " + rs.getString("tipo")
-                        + "Descrizione: " + rs.getString("descrizione")
-                        + "ID_Spesa: " + rs.getInt("ID_Spesa"));
+                result.add(rs.getInt ("ID_Trattamento") + ";"
+                        + rs.getDate("data") + ";"
+                        + rs.getInt("qta")+ ";"
+                        + rs.getString("tipo") +";"
+                        + rs.getString("descrizione") + ";"
+                        + rs.getInt("ID_Spesa"));
             } 
         } catch (SQLException e) {
             throw new DAOException("Errore lista trattamenti annui", e);

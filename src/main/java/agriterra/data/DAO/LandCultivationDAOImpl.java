@@ -1,4 +1,4 @@
-package agriterra.data.DAO;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +31,7 @@ public class LandCultivationDAOImpl implements LandCultivationDAO{
             st.setInt(2, anno);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                result.add("ID_Pianta" + rs.getInt("ID_Pianta"));
+                result.add(rs.getInt("ID_Pianta") + ";" + rs.getString("nome"));
             }
         } catch (SQLException e) {
             throw new DAOException("Errore caricamento colture terreno", e);

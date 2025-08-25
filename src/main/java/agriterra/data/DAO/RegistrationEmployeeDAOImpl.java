@@ -1,4 +1,4 @@
-package agriterra.data.DAO;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ public class RegistrationEmployeeDAOImpl implements RegistrationEmployeeDAO{
     }
     
     @Override
-    public void registraDipendente(String CF, String nome, String cognome, int telefono, String via, String num_civ, String città, String note) {
+    public void registraDipendente(String CF, String nome, String cognome, int telefono, String via, int num_civ, String città, String note) {
         String sql = "INSERT INTO Dipendente(nome, cognome, ruolo) VALUES (?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, CF);
@@ -28,7 +28,7 @@ public class RegistrationEmployeeDAOImpl implements RegistrationEmployeeDAO{
             st.setString(3, cognome);
             st.setInt(4, telefono);
             st.setString(5, via);
-            st.setString(6, num_civ);
+            st.setInt(6, num_civ);
             st.setString(7, città);
             st.setString(8, note);
             st.executeUpdate();
@@ -44,14 +44,14 @@ public class RegistrationEmployeeDAOImpl implements RegistrationEmployeeDAO{
         try (PreparedStatement st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery()) {
             while (rs.next()) {
-                result.add(rs.getInt("CF") + " - " +
-                    rs.getString("nome") + " " +
-                    rs.getString("cognome") + " (" +
-                    rs.getString("telefono")+ " (" +
-                    rs.getString("via") + " (" +
-                    rs.getString("num_civ") + " (" +
-                    rs.getString("città") + " (" +
-                    rs.getString("note") + ")");
+                result.add(rs.getString("CF") + ";" +
+                    rs.getString("nome") + ";" +
+                    rs.getString("cognome") + ";" +
+                    rs.getInt("telefono")+ ";" +
+                    rs.getString("via") + ";" +
+                    rs.getInt("num_civ") + ";" +
+                    rs.getString("città") + ";" +
+                    rs.getString("note"));
             }
         } catch (Exception e) {
             throw new DAOException("Errore caricamento dipendenti", e);
