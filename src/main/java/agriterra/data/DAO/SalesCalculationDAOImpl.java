@@ -25,7 +25,7 @@ public class SalesCalculationDAOImpl implements SalesCalculationDAO {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 double totale = rs.getDouble("totale"); // prende il totale
-                result = "Ricavo Totale nell'anno " + anno + " --> " + totale;
+                result = "Ricavo Totale nell'anno " + anno + " = " + totale;
             }
         } catch (SQLException e) {
             throw new DAOException("Errore calcolo vendite annue", e);

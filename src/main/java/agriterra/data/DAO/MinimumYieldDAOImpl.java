@@ -23,11 +23,11 @@ public class MinimumYieldDAOImpl implements MinimumYieldDAO{
     public List<String> terreniConRendimentoMin(String nome) {
         List<String> result = new ArrayList<>();
         String sql = """
-            SELECT C.ID_Terreno, C.rendimento
+            SELECT CC.ID_Terreno, CC.rendimento
             FROM CICLO_COLTURALE CC
             JOIN Pianta P ON CC.ID_Pianta = P.ID_Pianta
             WHERE P.nome = ?
-            ORDER BY C.rendimento ASC
+            ORDER BY CC.rendimento ASC
             LIMIT 5
         """;
         try (PreparedStatement st = conn.prepareStatement(sql)) {

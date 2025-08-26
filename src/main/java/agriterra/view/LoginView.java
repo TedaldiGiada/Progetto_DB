@@ -204,10 +204,4 @@ public class LoginView extends JFrame {
     public void display() {
         setVisible(true);
     }
-    
-    // Metodo per nascondere la finestra
-    @Override
-    public void hide() {
-        setVisible(false);
-    }
 }

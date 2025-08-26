@@ -29,10 +29,7 @@ import agriterra.model.Model;
 public class AdminView extends JPanel {
 
     private JTabbedPane tabbedPane;
-    public JTextField annoTrattamentoField;
     public JButton caricaTrattamentiBtn;
-    public JTable trattamentiTable;
-    public DefaultTableModel trattamentiTableModel;
     public JTextField descrizioneManutField, costoManutField, dataManutField, tipoManutField;
     public JButton registraManutBtn, refreshManutBtn;
     public JTable manutenzioniTable;
@@ -191,15 +188,14 @@ public class AdminView extends JPanel {
         visualizzaTratt.addActionListener(e -> {
             lista2.clear();
             lista2 = at.listaTrattamentiAnnui(getAnnoTrattamentoField());
-            trattamentiTableModel.setRowCount(0);
+            trattTableModel.setRowCount(0);
             for (String t : lista2) {
                 String[] parts = t.split(";");
-                trattamentiTableModel.addRow(parts);
+                trattTableModel.addRow(parts);
             }
         });
         form.add(visualizzaTratt);
-
-        trattTableModel = new DefaultTableModel(new Object[]{"ID_Trattamento"}, 0);
+        trattTableModel = new DefaultTableModel(new Object[]{"ID_Trattamento", "data", "tipo", "descrizione" }, 0);
         trattTable = new JTable(trattTableModel);
 
         panel.add(form, BorderLayout.NORTH);
@@ -276,7 +272,7 @@ public class AdminView extends JPanel {
     }
 
     public int getAnnoTrattamentoField() {
-        return Integer.parseInt(annoTrattamentoField.getText()); 
+        return Integer.parseInt(annoField.getText()); 
     }
 
     public int getManutMacchinaField() {
@@ -313,8 +309,8 @@ public class AdminView extends JPanel {
         return cognomeField.getText();
     }
 
-    public int getTelefonoField() {
-        return Integer.parseInt(telefonoField.getText()); 
+    public long getTelefonoField() {
+        return Long.parseLong(telefonoField.getText()); 
     }
 
     public String getViaField() {

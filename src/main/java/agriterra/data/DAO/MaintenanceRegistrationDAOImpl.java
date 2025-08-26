@@ -20,7 +20,7 @@ public class MaintenanceRegistrationDAOImpl implements MaintenanceRegistrationDA
 
     @Override
     public void registraManutenzione(int ID_Manutenzione, String azienda, String descrizione, String tipo, int ID_Spesa, String ID_Macchinario) {
-        String sql = "INSERT INTO Manutenzione(ID_Manutenzione, azienda, descrizione, tipo, ID_Spesa, ID_Macchinario) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Manutenzione_Riparazione(ID_Manutenzione, azienda, descrizione, tipo, ID_Spesa, ID_Macchinario) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setInt(1, ID_Manutenzione);
             st.setString(2, azienda);
@@ -46,7 +46,7 @@ public class MaintenanceRegistrationDAOImpl implements MaintenanceRegistrationDA
             while (rs.next()) {
                 result.add(
                     rs.getInt("ID_Manutenzione") + ";" +
-                    rs.getDate("azienda") + ";" +
+                    rs.getString("azienda") + ";" +
                     rs.getString("descrizione") + ";" +
                     rs.getString("tipo") + ";" +
                     rs.getInt("ID_Spesa") + ";" +

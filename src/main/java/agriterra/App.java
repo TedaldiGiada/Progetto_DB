@@ -8,7 +8,6 @@ import agriterra.data.utils.DAOUtils;
 import agriterra.model.Model;
 import agriterra.view.LoginView;
 
-
 public final class App {
     @SuppressWarnings("CallToPrintStackTrace")
     public static void main(String[] args) throws SQLException{

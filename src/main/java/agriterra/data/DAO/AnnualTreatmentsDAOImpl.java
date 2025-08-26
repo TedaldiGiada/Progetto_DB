@@ -33,10 +33,8 @@ public class AnnualTreatmentsDAOImpl implements AnnualTreatmentsDAO{
             while (rs.next()) {
                 result.add(rs.getInt ("ID_Trattamento") + ";"
                         + rs.getDate("data") + ";"
-                        + rs.getInt("qta")+ ";"
                         + rs.getString("tipo") +";"
-                        + rs.getString("descrizione") + ";"
-                        + rs.getInt("ID_Spesa"));
+                        + rs.getString("descrizione"));
             } 
         } catch (SQLException e) {
             throw new DAOException("Errore lista trattamenti annui", e);

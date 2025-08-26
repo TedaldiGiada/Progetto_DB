@@ -232,7 +232,11 @@ public class ManagerView extends JPanel {
         return unita.getText();
     }
     private int getRendimento() {
-        return Integer.parseInt(rendimentoField.getText());
+        String testo = rendimentoField.getText().trim();
+        if (testo.isEmpty()) {
+            return 0; 
+        }
+        return Integer.parseInt(testo);
     }
     private LocalDate getDataF() {
         return LocalDate.parse(data1Field.getText());

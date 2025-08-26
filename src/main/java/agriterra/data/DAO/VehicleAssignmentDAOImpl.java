@@ -46,12 +46,10 @@ public class VehicleAssignmentDAOImpl implements VehicleAssignmentDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 result.add(
-                    rs.getInt("ID_Trattamento") + ";" +
+                    rs.getString("CF") + ";" +
+                    rs.getString("ID_Macchinario") + ";" +
                     rs.getDate("data") + ";" +
-                    rs.getInt("qta") + ";" +
-                    rs.getString("tipo") + ";" +
-                    rs.getString("descrizione") + ";" +
-                    rs.getInt("ID_Spesa")
+                    rs.getString("note")
                 );
             }
         } catch (SQLException e) {
