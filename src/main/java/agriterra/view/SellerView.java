@@ -87,6 +87,7 @@ public class SellerView extends JPanel {
 
         clientiTableModel = new DefaultTableModel(new Object[]{"CF", "Nome", "Cognome"}, 0);
         clientiTable = new JTable(clientiTableModel);
+        clientiTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         panel.add(top, BorderLayout.NORTH);
         panel.add(btm, BorderLayout.SOUTH);
@@ -112,6 +113,7 @@ public class SellerView extends JPanel {
 
         venditeTableModel = new DefaultTableModel(new Object[]{"Ricavo Totale"}, 0);
         venditeTable = new JTable(venditeTableModel);
+        venditeTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         panel.add(form, BorderLayout.NORTH);
         panel.add(new JScrollPane(venditeTable), BorderLayout.CENTER);

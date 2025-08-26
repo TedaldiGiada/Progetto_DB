@@ -1,7 +1,6 @@
 package agriterra.view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.sql.Connection;
 import java.time.LocalDate;
@@ -35,13 +34,10 @@ public class ManagerView extends JPanel {
     private DefaultTableModel macchinariTableModel;
     private JTable macchinariTable;
     private JButton visualizzaPiante;
-    private Component pianteTable;
     private DefaultTableModel pianteTableModel;
     private DefaultTableModel rendimentiTableModel;
     private JButton visualizzaRendimenti;
-    private Component rendimentiTable;
     private DefaultTableModel terreniTableModel;
-    private Component terreniTable;
     private JButton aggiungiCicli;
     private final LandCultivationDAO lc;
     private final MinimumYieldDAO my;
@@ -65,6 +61,9 @@ public class ManagerView extends JPanel {
     @SuppressWarnings("unused")
     private final Model model;
     private List<String> lista, lista1, lista2, lista3;
+    private JTable pianteTable;
+    private JTable rendimentiTable;
+    private JTable terreniTable;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public ManagerView(Model model) {
@@ -122,13 +121,14 @@ public class ManagerView extends JPanel {
         pianteTableModel = new DefaultTableModel(
                 new Object[]{"ID_Pianta", "Nome"}, 0);
         pianteTable = new JTable(pianteTableModel);
+        pianteTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         pianta.add(new JScrollPane(pianteTable), BorderLayout.CENTER);
 
         return pianta;
     }
     private JPanel createRendimentoPanel() {
-        JPanel rendimento = new JPanel();
+        JPanel rendimento = new JPanel(new BorderLayout(10, 10));
         JPanel formPanel = new JPanel(new GridLayout(1, 1, 5, 5));
 
         formPanel.add(new JLabel("Pianta:"));
@@ -155,12 +155,13 @@ public class ManagerView extends JPanel {
         rendimentiTableModel = new DefaultTableModel(
                 new Object[]{"ID_Terreno", "Rendimento"}, 0);
         rendimentiTable = new JTable(rendimentiTableModel);
+        rendimentiTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         rendimento.add(new JScrollPane(rendimentiTable), BorderLayout.CENTER);
         return rendimento;
     }
     private JPanel createTerreniPanel() {
-        JPanel terreni = new JPanel();
+        JPanel terreni = new JPanel(new BorderLayout(10, 10));
         JPanel formPanel = new JPanel(new GridLayout(10, 2, 10, 10));
 
         formPanel.add(new JLabel("ID_Ciclo:"));
@@ -275,6 +276,7 @@ public class ManagerView extends JPanel {
         macchinariTableModel = new DefaultTableModel(
                 new Object[]{"ID_Macchinario", "Nome", "Marca/Modello"}, 0);
         macchinariTable = new JTable(macchinariTableModel);
+        macchinariTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         visualizza.add(new JScrollPane(macchinariTable), BorderLayout.CENTER);
 

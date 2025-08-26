@@ -127,6 +127,7 @@ public class AdminView extends JPanel {
         assegnazioniTableModel = new DefaultTableModel(
                 new Object[]{"CF", "Macchina", "Data", "Note"}, 0);
         assegnazioniTable = new JTable(assegnazioniTableModel);
+        assegnazioniTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         assegnazioni.add(new JScrollPane(assegnazioniTable), BorderLayout.CENTER);
 
@@ -169,6 +170,7 @@ public class AdminView extends JPanel {
 
         manutenzioniTableModel = new DefaultTableModel(new Object[]{"ID", "Azienda", "Descrizione", "Tipo", "ID_Spesa", "ID_Macchinario"}, 0);
         manutenzioniTable = new JTable(manutenzioniTableModel);
+        manutenzioniTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         panel.add(form, BorderLayout.NORTH);
         panel.add(new JScrollPane(manutenzioniTable), BorderLayout.CENTER);
@@ -197,6 +199,7 @@ public class AdminView extends JPanel {
         form.add(visualizzaTratt);
         trattTableModel = new DefaultTableModel(new Object[]{"ID_Trattamento", "data", "tipo", "descrizione" }, 0);
         trattTable = new JTable(trattTableModel);
+        trattTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         panel.add(form, BorderLayout.NORTH);
         panel.add(new JScrollPane(trattTable), BorderLayout.CENTER);
@@ -261,6 +264,7 @@ public class AdminView extends JPanel {
         dipendentiTableModel = new DefaultTableModel(
                 new Object[]{"CF", "Nome", "Cognome", "Telefono", "Via", "Num Civ", "Città", "Note"}, 0);
         dipendentiTable = new JTable(dipendentiTableModel);
+        dipendentiTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         dipendenti.add(new JScrollPane(dipendentiTable), BorderLayout.CENTER);
 
