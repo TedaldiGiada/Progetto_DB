@@ -20,13 +20,13 @@ public class RegistrationEmployeeDAOImpl implements RegistrationEmployeeDAO{
     }
     
     @Override
-    public void registraDipendente(String CF, String nome, String cognome, int telefono, String via, int num_civ, String città, String note) {
-        String sql = "INSERT INTO Dipendente(nome, cognome, ruolo) VALUES (?, ?, ?)";
+    public void registraDipendente(String CF, String nome, String cognome, long telefono, String via, int num_civ, String città, String note) {
+        String sql = "INSERT INTO Dipendente(CF, nome, cognome, telefono, via, num_civ, città, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, CF);
             st.setString(2, nome);
             st.setString(3, cognome);
-            st.setInt(4, telefono);
+            st.setLong(4, telefono);
             st.setString(5, via);
             st.setInt(6, num_civ);
             st.setString(7, città);
@@ -47,7 +47,7 @@ public class RegistrationEmployeeDAOImpl implements RegistrationEmployeeDAO{
                 result.add(rs.getString("CF") + ";" +
                     rs.getString("nome") + ";" +
                     rs.getString("cognome") + ";" +
-                    rs.getInt("telefono")+ ";" +
+                    rs.getLong("telefono")+ ";" +
                     rs.getString("via") + ";" +
                     rs.getInt("num_civ") + ";" +
                     rs.getString("città") + ";" +

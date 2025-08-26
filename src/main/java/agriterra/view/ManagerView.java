@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -296,8 +297,17 @@ public class ManagerView extends JPanel {
         return tabbedPane;
     }
     
-    private int getVendita() {
-        return Integer.parseInt(vendita.getText());
+    private Integer getVendita() {
+        String text = vendita.getText().trim();
+        if (text.isEmpty()) {
+            return null;
+        }
+        try {
+            return Integer.valueOf(text);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Devi inserire un numero!", "Errore", JOptionPane.ERROR_MESSAGE);
+            throw e;
+        }
     }
     private int getAnno1() {
         return Integer.parseInt(anno1Field.getText());

@@ -41,7 +41,8 @@ public class SellerView extends JPanel {
     private final Connection c;
     @SuppressWarnings("unused")
     private final Model model;
-    private List<String> lista, lista1;
+    private List<String> lista;
+    private String stringa;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public SellerView(Model model) {
@@ -94,7 +95,7 @@ public class SellerView extends JPanel {
     }
 
     private JPanel createVenditePanel() {
-        lista1 = new ArrayList<>();
+        stringa = new String();
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         JPanel form = new JPanel(new GridLayout(1, 3, 10, 10));
         form.add(new JLabel("Anno:"));
@@ -102,13 +103,10 @@ public class SellerView extends JPanel {
         form.add(annoVenditeField);
         calcolaVenditeBtn = new JButton("Calcola Vendite");
         calcolaVenditeBtn.addActionListener(e -> {
-            lista1.clear();
-            lista1 = sc.calcoloVenditeAnnue(getAnnoVendite());
+            stringa = "";
+            stringa = sc.calcoloVenditeAnnue(getAnnoVendite());
             venditeTableModel.setRowCount(0);
-            for (String vendite : lista1) {
-                String[] parts = vendite.split(";");
-                venditeTableModel.addRow(parts);
-            }
+            venditeTableModel.addRow(new Object[]{stringa});
         });
         panel.add(calcolaVenditeBtn, BorderLayout.SOUTH);
 

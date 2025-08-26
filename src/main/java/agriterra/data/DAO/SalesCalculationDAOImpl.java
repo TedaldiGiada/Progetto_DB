@@ -3,8 +3,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import agriterra.data.api.SalesCalculationDAO;
 import agriterra.data.utils.DAOException;
@@ -19,14 +17,15 @@ public class SalesCalculationDAOImpl implements SalesCalculationDAO {
     }
 
     @Override
-    public List<String> calcoloVenditeAnnue(int anno) {
-        List<String> result = new ArrayList<>();
-        String sql = "SELECT SUM(prezzo) as totale FROM Vendita WHERE anno = ?";
+    public String calcoloVenditeAnnue(int anno) {
+        String result = "";
+        String sql = "SELECT SUM(prezzo) as totale FROM Vendita WHERE YEAR(data) = ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setInt(1, anno);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                result.add("Ricavo Totale nell'anno "+ anno + " " + rs.getDouble("totale"));
+                double totale = rs.getDouble("totale"); // prende il totale
+                result = "Ricavo Totale nell'anno " + anno + " --> " + totale;
             }
         } catch (SQLException e) {
             throw new DAOException("Errore calcolo vendite annue", e);

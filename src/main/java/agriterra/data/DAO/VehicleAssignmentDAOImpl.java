@@ -35,6 +35,7 @@ public class VehicleAssignmentDAOImpl implements VehicleAssignmentDAO {
         }
     }
 
+    @Override
     public List<String> assegnazioni() {
         List<String> result = new ArrayList<>();
         String sql = """
@@ -45,7 +46,7 @@ public class VehicleAssignmentDAOImpl implements VehicleAssignmentDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 result.add(
-                    rs.getString("ID_Trattamento") + ";" +
+                    rs.getInt("ID_Trattamento") + ";" +
                     rs.getDate("data") + ";" +
                     rs.getInt("qta") + ";" +
                     rs.getString("tipo") + ";" +
