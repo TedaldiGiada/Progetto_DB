@@ -1,79 +1,17 @@
-CREATE TABLE Assegnazione_Trattamento (
-    CF	 			CHAR(16) 		NOT NULL,
-    ID_Trattamento 	INT 			NOT NULL,
-    data 			DATETIME 		NOT NULL,
-    Note 			VARCHAR(255),
-    PRIMARY KEY(CF, ID_Trattamento, data),
-    FOREIGN KEY(CF) REFERENCES Dipendente(CF)
-    	ON DELETE CASCADE
-		ON UPDATE NO ACTION,
-    FOREIGN KEY(ID_Trattamento) REFERENCES Trattamento(ID_Trattamento)
-    	ON DELETE CASCADE 
-		ON UPDATE NO ACTION
-);
+-- Database Section
+-- ________________ 
 
-CREATE TABLE Assegnazione_Macchinario (
-    CF 				CHAR(16)		NOT NULL,
-    ID_Macchinario 	VARCHAR(9) 			NOT NULL,
-    data 			DATETIME 		NOT NULL,
-    Note 			VARCHAR(255),
-    PRIMARY KEY(CF, ID_Macchinario, data),
-    FOREIGN KEY(CF) REFERENCES Dipendente
-    	ON DELETE CASCADE 
-    	ON UPDATE NO ACTION,
-    FOREIGN KEY(ID_Macchinario) REFERENCES Macchinario
-    	ON DELETE CASCADE 
-    	ON UPDATE NO ACTION
-);
+DROP DATABASE IF EXISTS dbAgriTerra;
 
-CREATE TABLE Assegnazione_Terreno (
-    ID_Asssegnazione	 INT PRIMARY KEY,
-    data_inizio		 	 DATETIME 		NOT NULL,
-    data_fine		 	 DATETIME,
-    responsabilità	 	 CHAR(16)		NOT NULL,
-    descrizione	         VARCHAR(255),
-    ID_Terreno		 	 INT			NOT NULL,
-    CF 			 		 CHAR(16) 		NOT NULL,
-    FOREIGN KEY(ID_Terreno) REFERENCES Terreno
-    	ON DELETE CASCADE 
-    	ON UPDATE NO ACTION,
-    FOREIGN KEY(CF) REFERENCES Dipendente
-    	ON DELETE CASCADE
-	 	ON UPDATE NO ACTION
-);
-   
-CREATE TABLE Busta_Paga (
-    ID_BustaPaga 	INT 			PRIMARY KEY,
-    CF 				CHAR(16) 		NOT NULL,
-    descrizione	    VARCHAR(255) 	NOT NULL,
-    DataPagamento 	DATETIME 		NOT NULL,
-    valore			DECIMAL(10,2)   NOT NULL CHECK(valore>=0),
-    FOREIGN KEY(CF) REFERENCES Dipendente
-    	ON DELETE CASCADE 
-        ON UPDATE NO ACTION
-);
+CREATE DATABASE dbAgriTerra;
+USE dbAgriTerra;
 
-CREATE TABLE Ciclo_Colturale (
-    ID_Ciclo		INT 			PRIMARY KEY,
-    ID_Pianta		INT 			NOT NULL,
-    anno		    INT 			NOT NULL,
-    data_inizio		DATETIME 		NOT NULL,
-    data_fine		DATETIME,
-    rendimento 	    INT,
-    unità_misura	VARCHAR(10),
-    descrizione 	VARCHAR(255),
-    ID_Terreno		INT 			NOT NULL,
-    ID_Vendita		INT,
-    FOREIGN KEY(ID_Pianta) REFERENCES Pianta
-    	ON DELETE CASCADE 
-    	ON UPDATE NO ACTION,
-    FOREIGN KEY(ID_Tereno) REFERENCES Terreno
-            ON DELETE CASCADE 
-            ON UPDATE NO ACTION,
-    FOREIGN KEY(ID_Vendita) REFERENCES Vendita
-            ON DELETE SET NULL 
-            ON UPDATE NO ACTION
-);
+-- DBSpace Section
+-- _______________
+
+
+-- Tables Section
+-- _____________ 
 
 CREATE TABLE Dipendente (
     CF 			CHAR(16) 		PRIMARY KEY,
@@ -116,36 +54,9 @@ CREATE TABLE Spesa_Agricola (
     prezzo		    DECIMAL(10,2) 	NOT NULL CHECK(prezzo >= 0),
     anno			INT 			NOT NULL,
     ID_Fornitore	INT 			NOT NULL,
-    FOREIGN KEY(ID_Fornitore) REFERENCES Fornitore
+    FOREIGN KEY(ID_Fornitore) REFERENCES Fornitore(ID_Fornitore)
     	ON DELETE CASCADE 
         ON UPDATE NO ACTION
-);
-
-CREATE TABLE Macchinario (
-    ID_Macchinario	VARCHAR(9) 			PRIMARY KEY,
-    marca_modello	VARCHAR(100) 	NOT NULL,
-    nome			VARCHAR(100) 	NOT NULL,
-    categoria		VARCHAR(50),
-    descrizione		VARCHAR(255),
-    ID_Spsesa		INT 			NOT NULL,
-    FOREIGN KEY(ID_Spesa) REFERENCES Spesa_Agricola
-    	ON DELETE CASCADE 
- 	    ON UPDATE NO ACTION
-);
-
-CREATE TABLE Manutenzione_Riparazione (
-    ID_Manutenzione	INT 			PRIMARY KEY,
-    azienda		    VARCHAR(100)	NOT NULL,
-    descrizione		VARCHAR(255) 	NOT NULL,
-    tipo			VARCHAR(50) 	NOT NULL,
-    ID_Spesa		INT 			NOT NULL,
-    ID_Macchinario	VARCHAR(9) 			NOT NULL,
-    FOREIGN KEY(ID_Spesa) REFERENCES Spesa_Agricola
-    	ON DELETE CASCADE 
-		ON UPDATE NO ACTION,
-    FOREIGN KEY(ID_Macchinario) REFERENCES Macchinario
-        ON DELETE CASCADE 
- 		ON UPDATE NO ACTION
 );
 
 CREATE TABLE Pianta (
@@ -156,9 +67,22 @@ CREATE TABLE Pianta (
     durata_colt_media	INT 			NOT NULL,
     descrizione		    VARCHAR(255),
     ID_Spesa		    INT 			NOT NULL,
-    FOREIGN KEY(ID_Spesa) REFERENCES Spesa_Agricola
+    FOREIGN KEY(ID_Spesa) REFERENCES Spesa_Agricola(ID_Spesa)
     	ON DELETE CASCADE 
  		ON UPDATE NO ACTION
+);
+
+CREATE TABLE Trattamento (
+    ID_Trattamento	INT 			PRIMARY KEY,
+    data			DATETIME 		NOT NULL,
+    qta			    DECIMAL(10,2) 	CHECK(qta>=0),
+    costo			DECIMAL(10,2) 	CHECK(costo>=0),
+    tipo			VARCHAR(50),
+    descrizione 	VARCHAR(255),
+    ID_Spesa		INT 			NOT NULL,
+    FOREIGN KEY(ID_Spesa) REFERENCES Spesa_Agricola(ID_Spesa)
+    	ON DELETE CASCADE 
+ 	    ON UPDATE NO ACTION
 );
 
 CREATE TABLE Terreno (
@@ -168,7 +92,7 @@ CREATE TABLE Terreno (
     tipo			VARCHAR(50),
     stato 			VARCHAR(50),
     ID_Trattamento	INT,
-    FOREIGN KEY(ID_Trattamento) REFERENCES Trattamento
+    FOREIGN KEY(ID_Trattamento) REFERENCES Trattamento(ID_Trattamento)
     	ON DELETE SET NULL 
  	    ON UPDATE NO ACTION
 );
@@ -180,23 +104,115 @@ CREATE TABLE Vendita (
     descrizione		VARCHAR(255),
     data		    DATETIME		NOT NULL,
     CF 			    CHAR(16) 		NOT NULL,
-    FOREIGN KEY(CF) REFERENCES Cliente
+    FOREIGN KEY(CF) REFERENCES Cliente(CF)
     	ON DELETE CASCADE 
  	    ON UPDATE NO ACTION
 );
 
-CREATE TABLE Trattamento (
-    ID_Trattamento	INT 			PRIMARY KEY,
-    data			DATETIME 		NOT NULL,
-    qta			    DECIMAL(10,2) 	CHECK(qta>=0),
-    costo			DECIMAL(10,2) 	CHECK(costo>=0),
-    tipo			VARCHAR(50),
-    descrizione 	VARCHAR(255),
+CREATE TABLE Macchinario (
+    ID_Macchinario	VARCHAR(9) 			PRIMARY KEY,
+    marca_modello	VARCHAR(100) 	NOT NULL,
+    nome			VARCHAR(100) 	NOT NULL,
+    categoria		VARCHAR(50),
+    descrizione		VARCHAR(255),
     ID_Spesa		INT 			NOT NULL,
-    FOREIGN KEY(ID_Spesa) REFERENCES Spesa_Agricola
+    FOREIGN KEY(ID_Spesa) REFERENCES Spesa_Agricola(ID_Spesa)
     	ON DELETE CASCADE 
  	    ON UPDATE NO ACTION
 );
+
+CREATE TABLE Assegnazione_Trattamento (
+    CF	 			CHAR(16) 		NOT NULL,
+    ID_Trattamento 	INT 			NOT NULL,
+    data 			DATETIME 		NOT NULL,
+    Note 			VARCHAR(255),
+    PRIMARY KEY(CF, ID_Trattamento, data),
+    FOREIGN KEY(CF) REFERENCES Dipendente(CF)
+    	ON DELETE CASCADE
+		ON UPDATE NO ACTION,
+    FOREIGN KEY(ID_Trattamento) REFERENCES Trattamento(ID_Trattamento)
+    	ON DELETE CASCADE 
+		ON UPDATE NO ACTION
+);
+
+CREATE TABLE Assegnazione_Macchinario (
+    CF 				CHAR(16)		NOT NULL,
+    ID_Macchinario 	VARCHAR(9) 			NOT NULL,
+    data 			DATETIME 		NOT NULL,
+    Note 			VARCHAR(255),
+    PRIMARY KEY(CF, ID_Macchinario, data),
+    FOREIGN KEY(CF) REFERENCES Dipendente(CF)
+    	ON DELETE CASCADE 
+    	ON UPDATE NO ACTION,
+    FOREIGN KEY(ID_Macchinario) REFERENCES Macchinario(ID_Macchinario)
+    	ON DELETE CASCADE 
+    	ON UPDATE NO ACTION
+);
+
+CREATE TABLE Assegnazione_Terreno (
+    ID_Asssegnazione	 INT PRIMARY KEY,
+    data_inizio		 	 DATETIME 		NOT NULL,
+    data_fine		 	 DATETIME,
+    responsabilità	 	 CHAR(16)		NOT NULL,
+    descrizione	         VARCHAR(255),
+    ID_Terreno		 	 INT			NOT NULL,
+    CF 			 		 CHAR(16) 		NOT NULL,
+    FOREIGN KEY(ID_Terreno) REFERENCES Terreno(ID_Terreno)
+    	ON DELETE CASCADE 
+    	ON UPDATE NO ACTION,
+    FOREIGN KEY(CF) REFERENCES Dipendente(CF)
+    	ON DELETE CASCADE
+	 	ON UPDATE NO ACTION
+);
+   
+CREATE TABLE Busta_Paga (
+    ID_BustaPaga 	INT 			PRIMARY KEY,
+    CF 				CHAR(16) 		NOT NULL,
+    descrizione	    VARCHAR(255) 	NOT NULL,
+    DataPagamento 	DATETIME 		NOT NULL,
+    valore			DECIMAL(10,2)   NOT NULL CHECK(valore>=0),
+    FOREIGN KEY(CF) REFERENCES Dipendente(CF)
+    	ON DELETE CASCADE 
+        ON UPDATE NO ACTION
+);
+
+CREATE TABLE Ciclo_Colturale (
+    ID_Ciclo		INT 			PRIMARY KEY,
+    ID_Pianta		INT 			NOT NULL,
+    anno		    INT 			NOT NULL,
+    data_inizio		DATETIME 		NOT NULL,
+    data_fine		DATETIME,
+    rendimento 	    INT,
+    unità_misura	VARCHAR(10),
+    descrizione 	VARCHAR(255),
+    ID_Terreno		INT 			NOT NULL,
+    ID_Vendita		INT,
+    FOREIGN KEY(ID_Pianta) REFERENCES Pianta(ID_Pianta)
+    	ON DELETE CASCADE 
+    	ON UPDATE NO ACTION,
+    FOREIGN KEY(ID_Terreno) REFERENCES Terreno(ID_Terreno)
+            ON DELETE CASCADE 
+            ON UPDATE NO ACTION,
+    FOREIGN KEY(ID_Vendita) REFERENCES Vendita(ID_Vendita)
+            ON DELETE SET NULL 
+            ON UPDATE NO ACTION
+);
+
+CREATE TABLE Manutenzione_Riparazione (
+    ID_Manutenzione	INT 			PRIMARY KEY,
+    azienda		    VARCHAR(100)	NOT NULL,
+    descrizione		VARCHAR(255) 	NOT NULL,
+    tipo			VARCHAR(50) 	NOT NULL,
+    ID_Spesa		INT 			NOT NULL,
+    ID_Macchinario	VARCHAR(9) 			NOT NULL,
+    FOREIGN KEY(ID_Spesa) REFERENCES Spesa_Agricola(ID_Spesa)
+    	ON DELETE CASCADE 
+		ON UPDATE NO ACTION,
+    FOREIGN KEY(ID_Macchinario) REFERENCES Macchinario(ID_Macchinario)
+        ON DELETE CASCADE 
+ 		ON UPDATE NO ACTION
+);
+
 
 CREATE TABLE Utilizzo_Macchinario (
     ID_Utilizzo		    INT 			PRIMARY KEY,
@@ -207,16 +223,16 @@ CREATE TABLE Utilizzo_Macchinario (
     CF 			        CHAR(16) 		NOT NULL,
     ID_Ciclo		    INT 			NOT NULL,
     ID_Macchinario	    VARCHAR(9) 			NOT NULL,
-    FOREIGN KEY(ID_Terreno) REFERENCES Terreno
+    FOREIGN KEY(ID_Terreno) REFERENCES Terreno(ID_Terreno)
     	ON DELETE CASCADE 
  		ON UPDATE NO ACTION,
     FOREIGN KEY(CF) REFERENCES Dipendente(CF)
     	ON DELETE CASCADE 
  		ON UPDATE NO ACTION,
-    FOREIGN KEY(ID_Ciclo) REFERENCES Ciclo_Colturale
+    FOREIGN KEY(ID_Ciclo) REFERENCES Ciclo_Colturale(ID_Ciclo)
 		ON DELETE CASCADE 
  		ON UPDATE NO ACTION,
-    FOREIGN KEY(ID_Macchinario) REFERENCES Macchinario
+    FOREIGN KEY(ID_Macchinario) REFERENCES Macchinario(ID_Macchinario)
 		ON DELETE CASCADE 
  		ON UPDATE NO ACTION
 );
@@ -227,10 +243,13 @@ CREATE TABLE Valore_di_Mercato (
     anno				INT 			NOT NULL,
     data_aggiornamento	DATETIME 		NOT NULL,
     ID_Pianta	 		INT 			NOT NULL,
-    FOREIGN KEY(ID_Pianta) REFERENCES Pianta
+    FOREIGN KEY(ID_Pianta) REFERENCES Pianta(ID_Pianta)
     	ON DELETE CASCADE 
  		ON UPDATE NO ACTION
 );
+
+-- Insertions Section
+-- _____________ 
 
 INSERT INTO Dipendente VALUES
 ('RSSMRA80A01H501Z','Mario','Rossi','333111222','Via Roma','10','Firenze','Capo squadra'),
@@ -304,3 +323,4 @@ INSERT INTO Utilizzo_Macchinario VALUES
 (1,'2025-03-10',5,'Aratura',1,'VRDLGI85B02H501X',1,'1'),
 (2,'2025-07-05',8,'Raccolta grano',1,'BNCGPP70A01H501F',1,'2'),
 (3,'2025-06-15',4,'Irrigazione serra',2,'VRDLGI85B02H501X',2,'1');
+
