@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import agriterra.data.api.LandCultivationDAO;
@@ -27,7 +25,7 @@ import agriterra.data.dao.LandCultivationDAOImpl;
 import agriterra.data.dao.MinimumYieldDAOImpl;
 import agriterra.data.dao.PlantAssignmentDAOImpl;
 import agriterra.data.dao.UsedVehiclesDAOImpl;
-import agriterra.model.DBModel;
+import agriterra.model.Model;
 
 public class ManagerView extends JPanel {
     
@@ -63,12 +61,14 @@ public class ManagerView extends JPanel {
     private JTextField vendita;
     private JTextField ciclo1;
     private final Connection c;
-    private DBModel db;
+    @SuppressWarnings("unused")
+    private final Model model;
     private List<String> lista, lista1, lista2, lista3;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public ManagerView() {
-        c = db.getConnection();
+    public ManagerView(Model model) {
+        this.model = model;
+        c = model.getConnection();
         uv = new UsedVehiclesDAOImpl(c);
         pa = new PlantAssignmentDAOImpl(c);
         my = new MinimumYieldDAOImpl(c);
@@ -295,21 +295,7 @@ public class ManagerView extends JPanel {
     public JTabbedPane getTabbedPane() {
         return tabbedPane;
     }
-    public static void main(String[] args) {
-        // Avvio in thread grafico
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Pannello Amministratore");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            // Aggiungo il pannello admin
-            frame.setContentPane(new ManagerView());
-
-            frame.setSize(900, 600);
-            frame.setLocationRelativeTo(null); // centra la finestra
-            frame.setVisible(true);
-        });
-    }
-
+    
     private int getVendita() {
         return Integer.parseInt(vendita.getText());
     }

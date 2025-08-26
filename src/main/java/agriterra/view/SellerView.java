@@ -7,21 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import agriterra.data.api.CustomerListDAO;
 import agriterra.data.api.SalesCalculationDAO;
 import agriterra.data.dao.CustomerListDAOImpl;
 import agriterra.data.dao.SalesCalculationDAOImpl;
-import agriterra.model.DBModel;
+import agriterra.model.Model;
 
 public class SellerView extends JPanel {
 
@@ -41,12 +39,14 @@ public class SellerView extends JPanel {
     private JTextField anno;;
     private JTextField annoVenditeField;
     private final Connection c;
-    private DBModel db;
+    @SuppressWarnings("unused")
+    private final Model model;
     private List<String> lista, lista1;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public SellerView() {
-        c = db.getConnection();
+    public SellerView(Model model) {
+        this.model = model;
+        c = model.getConnection();
         cl = new CustomerListDAOImpl(c);
         sc = new SalesCalculationDAOImpl(c);
         initializeGUI();
@@ -130,16 +130,5 @@ public class SellerView extends JPanel {
 
     public JTabbedPane getTabbedPane() {
         return tabbedPane;
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Pannello Vendite");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setContentPane(new SellerView());
-            frame.setSize(900, 600);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
     }
 }

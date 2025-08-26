@@ -8,14 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import agriterra.data.api.AnnualTreatmentsDAO;
@@ -26,7 +24,7 @@ import agriterra.data.dao.AnnualTreatmentsDAOImpl;
 import agriterra.data.dao.MaintenanceRegistrationDAOImpl;
 import agriterra.data.dao.RegistrationEmployeeDAOImpl;
 import agriterra.data.dao.VehicleAssignmentDAOImpl;
-import agriterra.model.DBModel;
+import agriterra.model.Model;
 
 public class AdminView extends JPanel {
 
@@ -63,12 +61,14 @@ public class AdminView extends JPanel {
     private JTextField macchinarioField;
     private JTextField aziendaField;
     private final Connection c;
-    private DBModel db;
+    @SuppressWarnings({"unused"})
+    private final Model model;
     private List<String> lista, lista1, lista2, lista3;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public AdminView() {
-        c = db.getConnection();
+    public AdminView(Model model) {
+        this.model = model;
+        c = model.getConnection();
         at = new AnnualTreatmentsDAOImpl(c);
         va = new VehicleAssignmentDAOImpl(c);
         mr = new MaintenanceRegistrationDAOImpl(c);
@@ -350,20 +350,5 @@ public class AdminView extends JPanel {
     public String getNoteAssegnazioneField() {
         return noteAssegnazioneField.getText();
     }
-
-    public static void main(String[] args) {
-        // Avvio in thread grafico
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Pannello Amministratore");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            // passo "conn" al costruttore
-            frame.setContentPane(new AdminView());
-
-            frame.setSize(900, 600);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-    });
-}
 }
 

@@ -20,18 +20,16 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 import agriterra.Controller;
-import agriterra.model.Model;
 
 public class LoginView extends JFrame {
     private Controller controller;
-    private JTextArea usernameField;
-    private JTextArea passwordField;
+    private JTextArea usernameArea;
+    private JTextArea passwordArea;
     private JButton loginButton;
     private JLabel messageLabel;
     
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public LoginView() {
-        initializeGUI();
     }
 
     public void initializeGUI() {
@@ -85,15 +83,15 @@ public class LoginView extends JFrame {
         usernameLabel.setFont(new Font("Arial", Font.BOLD, 14));
         loginPanel.add(usernameLabel, gbc);
         
-        usernameField = new JTextArea();
-        usernameField.setFont(new Font("Arial", Font.PLAIN, 14));
-        usernameField.setBorder(BorderFactory.createCompoundBorder(
+        usernameArea = new JTextArea();
+        usernameArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        usernameArea.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLoweredBevelBorder(),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        loginPanel.add(usernameField, gbc);
+        loginPanel.add(usernameArea, gbc);
         
         // Password
         gbc.gridx = 0;
@@ -103,15 +101,15 @@ public class LoginView extends JFrame {
         passwordLabel.setFont(new Font("Arial", Font.BOLD, 14));
         loginPanel.add(passwordLabel, gbc);
         
-        passwordField = new JTextArea();
-        passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
-        passwordField.setBorder(BorderFactory.createCompoundBorder(
+        passwordArea = new JTextArea();
+        passwordArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        passwordArea.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLoweredBevelBorder(),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        loginPanel.add(passwordField, gbc);
+        loginPanel.add(passwordArea, gbc);
         
         // Spazio
         gbc.gridx = 0;
@@ -168,22 +166,22 @@ public class LoginView extends JFrame {
         
         add(mainPanel);
         
-        SwingUtilities.invokeLater(() -> usernameField.requestFocus());
+        SwingUtilities.invokeLater(() -> usernameArea.requestFocus());
         getRootPane().setDefaultButton(loginButton);
     }
     
     // Metodi getter per i componenti
     public String getUsername() {
-        return usernameField.getText();
+        return usernameArea.getText();
     }
     
     public String getPassword() {
-        return passwordField.getText();
+        return passwordArea.getText();
     }
     
     public void clearFields() {
-        usernameField.setText("");
-        passwordField.setText("");
+        usernameArea.setText("");
+        passwordArea.setText("");
         messageLabel.setText(" ");
     }
     
@@ -211,15 +209,5 @@ public class LoginView extends JFrame {
     @Override
     public void hide() {
         setVisible(false);
-    }
-    
-    // Metodo main per test della view
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Model model = new Model() {};
-        LoginView loginView = new LoginView();
-        loginView.setController(new Controller(model, loginView)); // 🔴 collega controller e view
-        loginView.display();
-    });
     }
 }

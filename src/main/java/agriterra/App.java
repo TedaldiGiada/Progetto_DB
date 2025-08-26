@@ -20,6 +20,7 @@ public final class App {
             try {
                 var view = new LoginView();
                 var controller = new Controller(model, view);
+                view.setController(controller);
                 controller.initialScene();
             } catch (Exception e) {
                 e.printStackTrace(); // qui vedi tutti gli errori GUI
