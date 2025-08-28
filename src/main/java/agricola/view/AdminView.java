@@ -25,8 +25,8 @@ import agricola.data.api.Treatment;
 import agricola.data.api.VehicleAssignment;
 
 public class AdminView extends JPanel {
-    private Controller controller;
-    private JTabbedPane tabbedPane;
+    private final Controller controller;
+    private final JTabbedPane tabbedPane;
     private JTextField dipendenteField;
     private JTextField macchinaField;
     private JTextField dataAssegnazioneField;
@@ -194,11 +194,13 @@ public class AdminView extends JPanel {
                 this.trattTableModel.addRow(parts);
             }
         });
-        form.add(visualizzaTratt);
+        JPanel btnPanel = new JPanel();
+        btnPanel.add(this.visualizzaTratt);
         this.trattTableModel = new DefaultTableModel(new Object[]{"ID_Trattamento", "data", "tipo", "descrizione" }, 0);
         this.trattTable = new JTable(this.trattTableModel);
         this.trattTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
+        panel.add(btnPanel, BorderLayout.SOUTH);
         panel.add(form, BorderLayout.NORTH);
         panel.add(new JScrollPane(this.trattTable), BorderLayout.CENTER);
         return panel;

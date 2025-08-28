@@ -18,12 +18,12 @@ import javax.swing.SwingUtilities;
 
 import agricola.controller.Controller;
 
-public class LoginView extends JPanel{
+public class LoginView extends JPanel {
     private Controller controller;
     private JTextArea usernameArea;
     private JTextArea passwordArea;
-    private JButton loginButton;
-    private JLabel messageLabel;
+    private final JButton loginButton;
+    private final JLabel messageLabel;
 
     public LoginView(Controller controller) {
         this.controller = controller;

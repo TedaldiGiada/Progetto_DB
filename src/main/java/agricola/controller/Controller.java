@@ -23,27 +23,21 @@ import agricola.view.View;
 public class Controller {
 
     private final Model model;
-    private View view;
+    private final View view;
 
     public Controller(Model model, View view){
         this.view = view;
         this.model = model;
-        this.view.initializeGUI();
-        this.view.setVisible(true);
     }
 
     public JPanel checkPanel(String username, String password) {
     Rule role = model.logIn(username, password);
-    switch (role) {
-        case ADMIN:
-            return new AdminView(this);
-        case SELLER:
-            return new SellerView(this);
-        case MANAGER:
-            return new ManagerView(this);
-        default:
-            return new LoginView(this);
-    }
+        return switch (role) {
+            case ADMIN -> new AdminView(this);
+            case SELLER -> new SellerView(this);
+            case MANAGER -> new ManagerView(this);
+            default -> new LoginView(this);
+        };
 }
 
     public void setView(JPanel panel) {
@@ -87,7 +81,7 @@ public class Controller {
     }
 
     public List<CropCycle> getCycle(){
-        return this.getCycle();
+        return this.model.getCycle();
     }
 
     public void registerEmployee(Employee employee){

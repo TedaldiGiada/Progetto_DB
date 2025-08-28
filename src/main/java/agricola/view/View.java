@@ -14,11 +14,9 @@ import agricola.controller.Controller;
 
 public class View extends JFrame{
     private Controller controller;
-    private LoginView login;
     
-public View(){
-    login = new LoginView(controller);
-    initializeGUI();
+    @SuppressWarnings("OverridableMethodCallInConstructor")
+    public View(){
     }
 
     public void initializeGUI(){
@@ -39,6 +37,7 @@ public View(){
 
         JPanel loginPanel = new LoginView(this.controller);
         centerPanel.add(loginPanel);
+        LoginView login = new LoginView(this.controller);
         getRootPane().setDefaultButton(login.getLoginButton());
 
         JPanel infoPanel = new JPanel(new FlowLayout());

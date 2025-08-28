@@ -1,5 +1,10 @@
 package agricola.view;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,17 +14,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.List;
-
 import agricola.controller.Controller;
 import agricola.data.api.Customer;
 
 public class SellerView extends JPanel {
-    private Controller controller;
-    private JTabbedPane tabbedPane;
+    private final Controller controller;
+    private final JTabbedPane tabbedPane;
     private List<Customer> lista;
     private JButton refreshClientiBtn;
     private JTextField anno;
@@ -45,7 +45,7 @@ public class SellerView extends JPanel {
     private JPanel createClientiPanel() {
         this.lista = new ArrayList<>();
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        JPanel top = new JPanel(new GridLayout(2, 1, 10, 10));
+        JPanel top = new JPanel(new GridLayout(1, 2, 10, 10));
         JPanel btm = new JPanel();
         this.refreshClientiBtn = new JButton("Lista Clienti Annui");
         this.refreshClientiBtn.addActionListener(e -> {
@@ -60,7 +60,6 @@ public class SellerView extends JPanel {
         top.add(new JLabel("Anno:"));
         this.anno = new JTextField();
         top.add(this.anno);
-        top.add(new JLabel("Elenco clienti"));
         btm.add(this.refreshClientiBtn);
 
         this.clientiTableModel = new DefaultTableModel(new Object[]{"CF", "Nome", "Cognome"}, 0);

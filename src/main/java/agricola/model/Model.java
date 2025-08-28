@@ -47,7 +47,7 @@ public class Model {
     private final PlantAssignmentDAO plantAssign;
     private final RegistrationEmployeeDAO regEmpl;
     private final VehicleAssignmentDAO vehicleAssign;
-    private List<User> users;
+    private final List<User> users;
     
     public Model(Connection conn){
         Objects.requireNonNull(conn, "Model created with null connection");
@@ -64,7 +64,7 @@ public class Model {
         this.users = new ArrayList<>();
     }
 
-    boolean register(String username, String password, Rule rule){
+    public boolean register(String username, String password, Rule rule){
         for (User u : users){
             if (u.getUsername().equals(username)){
                 return false;
