@@ -23,7 +23,7 @@ public class UsedVehiclesDAOImpl implements UsedVehiclesDAO{
     public List<String> macchinariUsatiInCiclo(int ID_Ciclo) {
     List<String> result = new ArrayList<>();
     String sql = """
-        SELECT M.ID_Macchinario, M.nome, M.marca_modello
+        SELECT DISTINCT M.ID_Macchinario, M.nome, M.marca_modello
         FROM Macchinario M
         JOIN Utilizzo_Macchinario UM ON UM.ID_Macchinario = M.ID_Macchinario
         WHERE UM.ID_Ciclo = ?

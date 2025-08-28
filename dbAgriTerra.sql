@@ -43,7 +43,7 @@ CREATE TABLE Fornitore (
     via			    VARCHAR(100) 	NOT NULL,
     num_civ		    VARCHAR(10) 	NOT NULL,
     città			VARCHAR(50) 	NOT NULL,
-    partita_IVA		CHAR(20) 		NOT NULL,
+    partita_IVA		CHAR(20) 		UNIQUE,
     tipo			VARCHAR(50)
 );
 
@@ -110,7 +110,7 @@ CREATE TABLE Vendita (
 );
 
 CREATE TABLE Macchinario (
-    ID_Macchinario	VARCHAR(9) 			PRIMARY KEY,
+    ID_Macchinario	VARCHAR(9) 		PRIMARY KEY,
     marca_modello	VARCHAR(100) 	NOT NULL,
     nome			VARCHAR(100) 	NOT NULL,
     categoria		VARCHAR(50),
@@ -125,7 +125,7 @@ CREATE TABLE Assegnazione_Trattamento (
     CF	 			CHAR(16) 		NOT NULL,
     ID_Trattamento 	INT 			NOT NULL,
     data 			DATETIME 		NOT NULL,
-    Note 			VARCHAR(255),
+    note 			VARCHAR(255),
     PRIMARY KEY(CF, ID_Trattamento, data),
     FOREIGN KEY(CF) REFERENCES Dipendente(CF)
     	ON DELETE CASCADE
@@ -137,9 +137,9 @@ CREATE TABLE Assegnazione_Trattamento (
 
 CREATE TABLE Assegnazione_Macchinario (
     CF 				CHAR(16)		NOT NULL,
-    ID_Macchinario 	VARCHAR(9) 			NOT NULL,
+    ID_Macchinario 	VARCHAR(9) 		NOT NULL,
     data 			DATETIME 		NOT NULL,
-    Note 			VARCHAR(255),
+    note 			VARCHAR(255),
     PRIMARY KEY(CF, ID_Macchinario, data),
     FOREIGN KEY(CF) REFERENCES Dipendente(CF)
     	ON DELETE CASCADE 
@@ -169,7 +169,7 @@ CREATE TABLE Busta_Paga (
     ID_BustaPaga 	INT 			PRIMARY KEY,
     CF 				CHAR(16) 		NOT NULL,
     descrizione	    VARCHAR(255) 	NOT NULL,
-    DataPagamento 	DATETIME 		NOT NULL,
+    data         	DATETIME 		NOT NULL,
     valore			DECIMAL(10,2)   NOT NULL CHECK(valore>=0),
     FOREIGN KEY(CF) REFERENCES Dipendente(CF)
     	ON DELETE CASCADE 
@@ -204,7 +204,7 @@ CREATE TABLE Manutenzione_Riparazione (
     descrizione		VARCHAR(255) 	NOT NULL,
     tipo			VARCHAR(50) 	NOT NULL,
     ID_Spesa		INT 			NOT NULL,
-    ID_Macchinario	VARCHAR(9) 			NOT NULL,
+    ID_Macchinario	VARCHAR(9) 		NOT NULL,
     FOREIGN KEY(ID_Spesa) REFERENCES Spesa_Agricola(ID_Spesa)
     	ON DELETE CASCADE 
 		ON UPDATE NO ACTION,
@@ -222,7 +222,7 @@ CREATE TABLE Utilizzo_Macchinario (
     ID_Terreno		    INT 			NOT NULL,
     CF 			        CHAR(16) 		NOT NULL,
     ID_Ciclo		    INT 			NOT NULL,
-    ID_Macchinario	    VARCHAR(9) 			NOT NULL,
+    ID_Macchinario	    VARCHAR(9) 		NOT NULL,
     FOREIGN KEY(ID_Terreno) REFERENCES Terreno(ID_Terreno)
     	ON DELETE CASCADE 
  		ON UPDATE NO ACTION,

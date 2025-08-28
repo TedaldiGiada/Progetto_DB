@@ -21,6 +21,28 @@ public class PlantAssignmentDAOImpl implements PlantAssignmentDAO{
     
     @Override
     public void assegnaTerrenoAColtura(int ID_Ciclo, int anno, LocalDate data_inizio, LocalDate data_fine, int rendimento, String unità_misura, String descrizione, int ID_Terreno, int ID_Pianta, Integer ID_Vendita) {
+        String checkOccupazione = """
+        SELECT COUNT(*) 
+        FROM Ciclo_Colturale 
+        WHERE ID_Terreno = ?
+            AND data_inizio <= ?
+            AND data_fine >= ?
+        """;
+
+        try (PreparedStatement checkSt = conn.prepareStatement(checkOccupazione)) {
+            checkSt.setInt(1, ID_Terreno);
+            checkSt.setDate(2, Date.valueOf(data_fine));   // fine nuovo ciclo
+            checkSt.setDate(3, Date.valueOf(data_inizio)); // inizio nuovo ciclo
+            try (ResultSet rs = checkSt.executeQuery()) {
+                rs.next();
+                if (rs.getInt(1) > 0) {
+                    throw new DAOException("Errore: il terreno " + ID_Terreno +
+                    " è già occupato in questo periodo.");
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Errore nella verifica disponibilità terreno", e);
+        }
         String sql = "INSERT INTO Ciclo_Colturale(ID_Ciclo, anno, data_inizio, data_fine, rendimento, unità_misura, descrizione, ID_Terreno, ID_Pianta, ID_Vendita) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setInt(1, ID_Ciclo);
