@@ -1,8 +1,10 @@
 package agricola.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,13 +12,12 @@ import javax.swing.JPanel;
 
 import agricola.controller.Controller;
 
-import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
-
 public class View extends JFrame{
     private Controller controller;
+    private LoginView login;
     
 public View(){
+    login = new LoginView(controller);
     initializeGUI();
     }
 
@@ -38,6 +39,7 @@ public View(){
 
         JPanel loginPanel = new LoginView(this.controller);
         centerPanel.add(loginPanel);
+        getRootPane().setDefaultButton(login.getLoginButton());
 
         JPanel infoPanel = new JPanel(new FlowLayout());
         infoPanel.setBackground(new Color(240, 248, 255));

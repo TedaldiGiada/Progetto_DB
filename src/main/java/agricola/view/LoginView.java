@@ -115,7 +115,6 @@ public class LoginView extends JPanel{
         add(messageLabel, gbc);
 
         SwingUtilities.invokeLater(() -> usernameArea.requestFocus());
-        getRootPane().setDefaultButton(loginButton);
         setVisible(true);
     }
 
@@ -132,5 +131,9 @@ public class LoginView extends JPanel{
         } else {
             messageLabel.setForeground(new Color(34, 139, 34));
         }
+    }
+
+    public JButton getLoginButton() {
+        return loginButton;
     }
 }
