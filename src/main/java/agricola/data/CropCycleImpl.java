@@ -105,8 +105,8 @@ public class CropCycleImpl implements CropCycle {
 
     @Override
     public String toString() {
-        return this.id + ";" + this.rendimento + ";" + this.dataInizio + ";"
-         + this.dataFine + ";" + this.unitaMisura + ";" + this.descrizione + ";"
+        return this.id + ";" + this.anno + ";" + this.dataInizio + ";"
+         + this.dataFine + ";" + this.rendimento + ";" + this.unitaMisura + ";" + this.descrizione + ";"
          + this.IdTerreno + ";" + this.IdPianta;
     }
 }

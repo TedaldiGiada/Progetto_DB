@@ -83,7 +83,7 @@ public class PlantAssignmentDAOImpl implements PlantAssignmentDAO {
                     rs.getDate("data_inizio"),
                     rs.getDate("data_fine"), 
                     rs.getDouble("rendimento"),
-                    rs.getString("unita_misura"), 
+                    rs.getString("unità_misura"), 
                     rs.getString("descrizione"),
                     rs.getInt("ID_Terreno"), 
                     rs.getInt("ID_Pianta")));
