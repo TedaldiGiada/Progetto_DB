@@ -15,7 +15,7 @@ public class CropCycleImpl implements CropCycle {
     private String descrizione;
     private int IdTerreno;
     private int IdPianta;
-    private int IdVendita;
+    private Integer IdVendita;
 
 
     public CropCycleImpl(int id, double rendimento) {

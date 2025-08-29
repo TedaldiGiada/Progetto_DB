@@ -3,9 +3,9 @@ package agricola.data;
 import agricola.data.api.Machinery;
 
 public class MachineryImpl implements Machinery {
-    private String id;
-    private String nome;
-    private String marcaModello;
+    private final String id;
+    private final String nome;
+    private final String marcaModello;
 
     public MachineryImpl(String id, String nome, String marcaModello) {
         this.id = id;

@@ -186,7 +186,7 @@ CREATE TABLE Ciclo_Colturale (
     unità_misura	VARCHAR(10),
     descrizione 	VARCHAR(255),
     ID_Terreno		INT 			NOT NULL,
-    ID_Vendita		INT,
+    ID_Vendita		INT,            NULL
     FOREIGN KEY(ID_Pianta) REFERENCES Pianta(ID_Pianta)
     	ON DELETE CASCADE 
     	ON UPDATE NO ACTION,

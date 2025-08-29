@@ -43,17 +43,17 @@ public class PlantAssignmentDAOImpl implements PlantAssignmentDAO {
         } catch (SQLException e) {
             throw new DAOException("Errore nella verifica disponibilità terreno", e);
         }
-        String sql = "INSERT INTO Coltivazione(ID_Ciclo, anno, data_inizio, data_fine, rendimento, unità_misura, descrizione, ID_Terreno, ID_Pianta, ID_Vendita) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Ciclo_Colturale(ID_Ciclo, ID_Pianta, anno, data_inizio, data_fine, rendimento, unità_misura, descrizione, ID_Terreno, ID_Vendita) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)){
             st.setInt(1, cropCycle.id());
-            st.setInt(2, cropCycle.getAnno());
-            st.setDate(3, cropCycle.getDataInizio());
-            st.setDate(4, cropCycle.getDataFine());
-            st.setDouble(5, cropCycle.getRendimento());
-            st.setString(6, cropCycle.getUnitaMisura());
-            st.setString(7, cropCycle.getDescrizione());
-            st.setInt(8, cropCycle.getIdTerreno());
-            st.setInt(9, cropCycle.getIdPianta());
+            st.setInt(2, cropCycle.getIdPianta());
+            st.setInt(3, cropCycle.getAnno());
+            st.setDate(4, cropCycle.getDataInizio());
+            st.setDate(5, cropCycle.getDataFine());
+            st.setDouble(6, cropCycle.getRendimento());
+            st.setString(7, cropCycle.getUnitaMisura());
+            st.setString(8, cropCycle.getDescrizione());
+            st.setInt(9, cropCycle.getIdTerreno());
             if (cropCycle.getIdVendita() == null) {
                 st.setNull(10, java.sql.Types.INTEGER);
             } else {

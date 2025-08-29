@@ -48,7 +48,7 @@ public class Controller {
         return this.model.getAnnualLandCultivation(idTerreno, anno);
     }
 
-    public double getAnnualSalesCalculation (int anno){
+    public String getAnnualSalesCalculation (int anno){
         return this.model.getAnnualSalesCalculation(anno);
     }
 

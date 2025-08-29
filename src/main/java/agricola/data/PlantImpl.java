@@ -3,8 +3,8 @@ package agricola.data;
 import agricola.data.api.Plant;
  
 public class PlantImpl implements Plant {
-    private int id;
-    private String nome;
+    private final int id;
+    private final String nome;
 
     public PlantImpl(int id, String nome) {
         this.id = id;
@@ -21,6 +21,7 @@ public class PlantImpl implements Plant {
         return this.nome;
     }
 
+    @Override
     public String toString() {
         return this.id + ";" + this.nome;
     }

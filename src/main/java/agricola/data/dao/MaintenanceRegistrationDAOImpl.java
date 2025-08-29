@@ -21,7 +21,7 @@ public class MaintenanceRegistrationDAOImpl implements MaintenanceRegistrationDA
 
     @Override
     public void registerMaintenance(Maintenance maintenance) {
-        String sql = "INSERT INTO Manutenzione(ID_Manutenzione, azienda, descrizione, tipo, ID_Spesa, ID_Macchinario) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Manutenzione_Riparazione(ID_Manutenzione, azienda, descrizione, tipo, ID_Spesa, ID_Macchinario) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setInt(1, maintenance.getId());
             st.setString(2, maintenance.getAzienda());

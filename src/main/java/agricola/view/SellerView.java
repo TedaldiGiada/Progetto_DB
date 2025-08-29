@@ -82,7 +82,7 @@ public class SellerView extends JPanel {
         this.calcolaVenditeBtn = new JButton("Calcola Vendite");
         this.calcolaVenditeBtn.addActionListener(e -> {
             this.stringa = "";
-            this.stringa = String.valueOf(this.controller.getAnnualSalesCalculation(getAnnoVendite()));
+            this.stringa = this.controller.getAnnualSalesCalculation(getAnnoVendite());
             this.venditeTableModel.setRowCount(0);
             this.venditeTableModel.addRow(new Object[]{this.stringa});
         });

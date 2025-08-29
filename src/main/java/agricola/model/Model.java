@@ -87,7 +87,7 @@ public class Model {
         return this.annualLandCult.getAnnualLandCultivation(idTerreno, anno);
     }
 
-    public double getAnnualSalesCalculation (int anno){
+    public String getAnnualSalesCalculation (int anno){
         return this.annualSalesCalc.calcoloVenditeAnnue(anno);
     }
 

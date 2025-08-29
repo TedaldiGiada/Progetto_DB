@@ -144,6 +144,7 @@ public class ManagerView extends JPanel {
         return rendimento;
     }
 
+    @SuppressWarnings("UnnecessaryTemporaryOnConversionFromString")
     private JPanel createTerreniPanel() {
         JPanel terreni = new JPanel(new BorderLayout(10, 10));
         JPanel formPanel = new JPanel(new GridLayout(10, 2, 10, 10));
@@ -265,10 +266,10 @@ public class ManagerView extends JPanel {
         }
         return Integer.parseInt(testo);
     }
-    private Date getDataF() {
+    private Date getDataIn() {
         return Date.valueOf(data1Field.getText());
     }
-    private Date getDataIn() {
+    private Date getDataF() {
         return Date.valueOf(data2Field.getText());
     }
     private int getCiclo1() {

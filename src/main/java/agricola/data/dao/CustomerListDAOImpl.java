@@ -32,7 +32,10 @@ public class CustomerListDAOImpl implements CustomerListDAO {
             st.setInt(1, anno);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                result.add(new CustomerImpl(rs.getString("CF"), rs.getString("nome"),rs.getString("cognome")));
+                result.add(new CustomerImpl(
+                    rs.getString("CF"), 
+                    rs.getString("nome"),
+                    rs.getString("cognome")));
             }
         } catch (SQLException e) {
             throw new DAOException("Errore lista compratori annui", e);

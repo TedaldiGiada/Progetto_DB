@@ -27,7 +27,7 @@ public class AnnualLandCultivationDAOImpl implements AnnualLandCultivationDAO {
             FROM PIANTA P 
             JOIN CICLO_COLTURALE CC ON P.ID_Pianta = CC.ID_Pianta 
             WHERE CC.ID_Terreno = ? 
-            AND C.anno = ?
+            AND CC.anno = ?
             """;
             try(PreparedStatement st = conn.prepareStatement(sql)){
                 st.setInt(1, idTerreno);

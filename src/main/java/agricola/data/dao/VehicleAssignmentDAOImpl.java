@@ -28,6 +28,7 @@ public class VehicleAssignmentDAOImpl implements VehicleAssignmentDAO {
             st.setString(2, assignment.getIdMacchina());
             st.setDate(3,assignment.getData());
             st.setString(4, assignment.getNote());
+            st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Errore nell'assegnazione del veicolo", e);
         }
