@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 
 public final class DAOUtils {
+    @SuppressWarnings("UseSpecificCatch")
     public static Connection localMySQLConnection(String database, String username, String password) {
         try {
             var host = "localhost";

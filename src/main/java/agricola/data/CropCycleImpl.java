@@ -6,9 +6,9 @@ import agricola.data.api.CropCycle;
 
 public class CropCycleImpl implements CropCycle {
 
-    private int id;
+    private final int id;
     private int anno;
-    private double rendimento;
+    private final double rendimento;
     private Date dataInizio;
     private Date dataFine;
     private String unitaMisura;
