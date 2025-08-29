@@ -12,7 +12,6 @@ import agriterra.view.ManagerView;
 import agriterra.view.SellerView;
 
 public class Controller {
-    @SuppressWarnings("unused")
     private final Model model;
     private final LoginView view;
 
