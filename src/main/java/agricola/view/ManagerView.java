@@ -243,8 +243,8 @@ public class ManagerView extends JPanel {
     }
 
 
-        private int getAnno1() {
-        return Integer.parseInt(anno1Field.getText());
+    private int getAnno1() {
+    return Integer.parseInt(anno1Field.getText());
     }
 
     private int getPianta() {
@@ -277,7 +277,7 @@ public class ManagerView extends JPanel {
     }
 
     private int getTerreno(){
-        return Integer.parseInt(annoField.getText());
+        return Integer.parseInt(terrenoField.getText());
     }
 
     private int getAnno(){
