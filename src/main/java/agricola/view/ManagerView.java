@@ -22,8 +22,8 @@ import agricola.data.api.Machinery;
 import agricola.data.api.Plant;
 
 public class ManagerView extends JPanel {
-    private Controller controller;
-    private JTabbedPane tabbedPane;
+    private final Controller controller;
+    private final JTabbedPane tabbedPane;
     private JButton visualizzaPiante;
     private JTextField terrenoField;
     private JTextField annoField;

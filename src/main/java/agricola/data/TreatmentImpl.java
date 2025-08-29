@@ -4,17 +4,14 @@ import java.sql.Date;
 import agricola.data.api.Treatment;
 
 public class TreatmentImpl implements Treatment {
-    private int id;
-    private Date data;
-    private int quantita;
-    private String tipo;
+    private final int id;
+    private final Date data;
+    private final String tipo;
     private String descrizione;
-    private int idSpesa;
 
-    public TreatmentImpl(int id, Date data, int quantita, String tipo, String descrizione, int idSpesa) {
+    public TreatmentImpl(int id, Date data, String tipo, String descrizione) {
         this.id = id;
         this.data = data;
-        this.quantita = quantita;
         this.tipo = tipo;
     }
 
@@ -29,11 +26,6 @@ public class TreatmentImpl implements Treatment {
     }
 
     @Override
-    public int getQuantita(){
-        return this.quantita;
-    }
-
-    @Override
     public String getTipo(){
         return this.tipo;
     }
@@ -41,11 +33,6 @@ public class TreatmentImpl implements Treatment {
     @Override
     public String getDescrizione(){
         return this.descrizione;
-    }
-
-    @Override
-    public int getIdSpesa(){
-        return this.idSpesa;
     }
 
     @Override

@@ -45,10 +45,13 @@ public class MaintenanceRegistrationDAOImpl implements MaintenanceRegistrationDA
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                result.add(new MaintenanceImpl(rs.getInt("ID_Manutenzione"), 
-                rs.getString("azienda"), rs.getString("descrizione"), 
-                rs.getString("tipo"), rs.getInt("ID_Spesa"),
-                 rs.getString("ID_Macchinario"))
+                result.add(new MaintenanceImpl(
+                    rs.getInt("ID_Manutenzione"), 
+                    rs.getString("azienda"), 
+                    rs.getString("descrizione"), 
+                    rs.getString("tipo"), 
+                    rs.getInt("ID_Spesa"),
+                    rs.getString("ID_Macchinario"))
                 );
             }
         } catch (SQLException e) {

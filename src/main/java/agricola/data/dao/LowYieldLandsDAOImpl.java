@@ -24,10 +24,10 @@ public class LowYieldLandsDAOImpl implements LowYieldLandsDAO {
         List<CropCycle> result = new ArrayList<>();
         String sql = """
             SELECT C.ID_Terreno, C.rendimento
-            FROM CICLO_COLTURALE CC
-            JOIN Pianta P ON CC.ID_Pianta = P.ID_Pianta
+            FROM CICLO_COLTURALE C
+            JOIN Pianta P ON C.ID_Pianta = P.ID_Pianta
             WHERE P.nome = ?
-            ORDERED BY C.rendimento ASC
+            ORDER BY C.rendimento ASC
             LIMIT 5
         """;
         try (PreparedStatement st = conn.prepareStatement(sql)) {

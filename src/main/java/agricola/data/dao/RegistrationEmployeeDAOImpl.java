@@ -44,10 +44,15 @@ public class RegistrationEmployeeDAOImpl implements RegistrationEmployeeDAO {
         try (PreparedStatement st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery()) {
             while (rs.next()) {
-                result.add(new EmployeeImpl(rs.getString("CF"),
-                rs.getString("nome"), rs.getString("cognome"),
-                rs.getInt("telefono"), rs.getString("via"), rs.getInt("num_civ"),
-                rs.getString("città"), rs.getString("note")));
+                result.add(new EmployeeImpl(
+                    rs.getString("CF"),
+                    rs.getString("nome"), 
+                    rs.getString("cognome"),
+                    rs.getLong("telefono"), 
+                    rs.getString("via"), 
+                    rs.getInt("num_civ"),
+                    rs.getString("città"), 
+                    rs.getString("note")));
             }
         } catch (Exception e) {
             throw new DAOException("Errore caricamento dipendenti", e);

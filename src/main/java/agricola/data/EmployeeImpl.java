@@ -4,14 +4,14 @@ import agricola.data.api.Employee;
 
 public class EmployeeImpl implements Employee {
 
-    private String cf;
-    private String nome;
-    private String cognome;
-    private long telefono;
-    private String via;
-    private int numCiv;
-    private String citta;
-    private String note;
+    private final String cf;
+    private final String nome;
+    private final String cognome;
+    private final long telefono;
+    private final String via;
+    private final int numCiv;
+    private final String citta;
+    private final String note;
 
     public EmployeeImpl(String cf, String nome, String cognome, long telefono, String via, int numCiv, String citta, String note) {
         this.cf = cf;

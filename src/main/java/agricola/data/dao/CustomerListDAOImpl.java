@@ -19,6 +19,7 @@ public class CustomerListDAOImpl implements CustomerListDAO {
         this.conn = conn;
     }
 
+    @Override
     public List<Customer> getAnnualCustomerList (int anno){
         List<Customer> result = new ArrayList<>();
         String sql = """

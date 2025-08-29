@@ -43,8 +43,11 @@ public class VehicleAssignmentDAOImpl implements VehicleAssignmentDAO {
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                result.add(new VehicleAssignmentImpl(rs.getString("CF"), rs.getString("ID_Macchinario"),
-                rs.getDate("data"), rs.getString("Note")));
+                result.add(new VehicleAssignmentImpl(
+                    rs.getString("CF"), 
+                    rs.getString("ID_Macchinario"),
+                    rs.getDate("data"), 
+                    rs.getString("Note")));
             }
         } catch (SQLException e){
             throw new DAOException("Errore nel recupero lista trattamenti",e);

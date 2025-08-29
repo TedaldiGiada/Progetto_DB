@@ -29,11 +29,13 @@ public class CycleMachineryDAOImpl implements CycleMachineryDAO {
         WHERE UM.ID_Ciclo = ?
         """;
         try (PreparedStatement st = conn.prepareStatement(sql)) {
-        st.setInt(1, idCiclo);
-        ResultSet rs = st.executeQuery();
+            st.setInt(1, idCiclo);
+            ResultSet rs = st.executeQuery();
             while(rs.next()){
-                result.add(new MachineryImpl(rs.getString("ID_MACCHINARIO"),
-                rs.getString("nome"), rs.getString("marca_modello")));
+                result.add(new MachineryImpl(
+                    rs.getString("ID_MACCHINARIO"),
+                    rs.getString("nome"), 
+                    rs.getString("marca_modello")));
             }
         } catch (SQLException e) {
             throw new DAOException("Errore caricamento macchinari ciclo", e);

@@ -21,6 +21,28 @@ public class PlantAssignmentDAOImpl implements PlantAssignmentDAO {
 
     @Override
     public void insertPlantAssignment(CropCycle cropCycle) {
+        String checkOccupazione = """
+        SELECT COUNT(*) 
+        FROM Ciclo_Colturale 
+        WHERE ID_Terreno = ?
+            AND data_inizio <= ?
+            AND data_fine >= ?
+        """;
+
+        try (PreparedStatement checkSt = conn.prepareStatement(checkOccupazione)) {
+            checkSt.setInt(1, cropCycle.getIdTerreno());
+            checkSt.setDate(2, cropCycle.getDataFine());   // fine nuovo ciclo
+            checkSt.setDate(3, cropCycle.getDataInizio()); // inizio nuovo ciclo
+            try (ResultSet rs = checkSt.executeQuery()) {
+                rs.next();
+                if (rs.getInt(1) > 0) {
+                    throw new DAOException("Errore: il terreno " + cropCycle.getIdTerreno() +
+                    " è già occupato in questo periodo.");
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Errore nella verifica disponibilità terreno", e);
+        }
         String sql = "INSERT INTO Coltivazione(ID_Ciclo, anno, data_inizio, data_fine, rendimento, unità_misura, descrizione, ID_Terreno, ID_Pianta, ID_Vendita) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = conn.prepareStatement(sql)){
             st.setInt(1, cropCycle.id());
@@ -32,7 +54,11 @@ public class PlantAssignmentDAOImpl implements PlantAssignmentDAO {
             st.setString(7, cropCycle.getDescrizione());
             st.setInt(8, cropCycle.getIdTerreno());
             st.setInt(9, cropCycle.getIdPianta());
-            st.setInt(10, cropCycle.getIdVendita());
+            if (cropCycle.getIdVendita() == null) {
+                st.setNull(10, java.sql.Types.INTEGER);
+            } else {
+                st.setInt(10, cropCycle.getIdVendita());
+            }
             st.executeUpdate();
         } catch (SQLException e){
             throw new DAOException("Errore assegnazione della coltura al terreno", e);
@@ -51,11 +77,16 @@ public class PlantAssignmentDAOImpl implements PlantAssignmentDAO {
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             ResultSet rs = st.executeQuery();
             while (rs.next()) { 
-                result.add(new CropCycleImpl(rs.getInt("ID_Ciclo"),
-                rs.getInt("anno"), rs.getDate("data_inizio"),
-                rs.getDate("data_fine"), rs.getDouble("rendimento"),
-                rs.getString("unita_misura"), rs.getString("descrizione"),
-                rs.getInt("ID_Terreno"), rs.getInt("ID_Pianta")));
+                result.add(new CropCycleImpl(
+                    rs.getInt("ID_Ciclo"),
+                    rs.getInt("anno"), 
+                    rs.getDate("data_inizio"),
+                    rs.getDate("data_fine"), 
+                    rs.getDouble("rendimento"),
+                    rs.getString("unita_misura"), 
+                    rs.getString("descrizione"),
+                    rs.getInt("ID_Terreno"), 
+                    rs.getInt("ID_Pianta")));
             }
         } catch (SQLException e){
             throw new DAOException("Errore caricamento colture terreno", e);

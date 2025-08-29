@@ -25,7 +25,7 @@ public class CropCycleImpl implements CropCycle {
 
     public CropCycleImpl(int id, int anno, Date dataInizio,
      Date dataFine, double rendimento, String unitaMisura,
-     String descrizione, int IdTerreno, int IdPianta, int IdVendita) {
+     String descrizione, int IdTerreno, int IdPianta, Integer IdVendita) {
         this.id = id;
         this.anno = anno;
         this.rendimento = rendimento;
@@ -94,7 +94,7 @@ public class CropCycleImpl implements CropCycle {
     }
 
     @Override
-    public int getIdVendita() {
+    public Integer getIdVendita() {
         return this.IdVendita;
     }
 

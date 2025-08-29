@@ -20,7 +20,7 @@ public interface CropCycle {
 
     int getIdPianta();
 
-    int getIdVendita();
+    Integer getIdVendita();
 
     int getAnno();
 

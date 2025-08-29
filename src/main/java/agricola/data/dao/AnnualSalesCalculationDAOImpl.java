@@ -17,14 +17,15 @@ public class AnnualSalesCalculationDAOImpl implements AnnualSalesCalculationDAO 
     }
 
     @Override
-    public double calcoloVenditeAnnue(int anno) {
-        double result = 0;
-        String sql = "SELECT SUM(prezzo) as totale FROM Vendita WHERE anno = ?";
+    public String calcoloVenditeAnnue(int anno) {
+        String result = "";
+        String sql = "SELECT SUM(prezzo) as totale FROM Vendita WHERE YEAR(data) = ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setInt(1, anno);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                result= rs.getDouble("totale");
+                double totale = rs.getDouble("totale"); // prende il totale
+                result = "Ricavo Totale nell'anno " + anno + " = " + totale;
             }
         } catch (SQLException e) {
             throw new DAOException("Errore calcolo vendite annue", e);

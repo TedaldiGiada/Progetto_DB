@@ -8,12 +8,8 @@ public interface Treatment {
 
     Date getData();
 
-    int getQuantita();
-
     String getTipo();
 
     String getDescrizione();
-
-    int getIdSpesa();
     
 }
