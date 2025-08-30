@@ -54,3 +54,12 @@ tasks.test {
         showStandardStreams = true
     }
 }
+
+tasks.shadowJar {
+    archiveBaseName.set("Progetto_DB")
+    archiveVersion.set("")
+    archiveClassifier.set("") // così non aggiunge "-all"
+    manifest {
+        attributes["Main-Class"] = "App"
+    }
+}
