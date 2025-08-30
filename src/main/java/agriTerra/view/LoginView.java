@@ -1,4 +1,4 @@
-package agricola.view;
+package agriterra.view;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
-import agricola.controller.Controller;
+import agriterra.controller.Controller;
 
 public class LoginView extends JPanel {
     private Controller controller;

@@ -1,4 +1,4 @@
-package agricola.view;
+package agriterra.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -15,14 +15,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import agricola.controller.Controller;
-import agricola.data.EmployeeImpl;
-import agricola.data.MaintenanceImpl;
-import agricola.data.VehicleAssignmentImpl;
-import agricola.data.api.Employee;
-import agricola.data.api.Maintenance;
-import agricola.data.api.Treatment;
-import agricola.data.api.VehicleAssignment;
+import agriterra.controller.Controller;
+import agriterra.data.EmployeeImpl;
+import agriterra.data.MaintenanceImpl;
+import agriterra.data.VehicleAssignmentImpl;
+import agriterra.data.api.Employee;
+import agriterra.data.api.Maintenance;
+import agriterra.data.api.Treatment;
+import agriterra.data.api.VehicleAssignment;
 
 public class AdminView extends JPanel {
     private final Controller controller;

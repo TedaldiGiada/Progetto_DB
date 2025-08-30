@@ -1,4 +1,4 @@
-package agricola.view;
+package agriterra.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -14,8 +14,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import agricola.controller.Controller;
-import agricola.data.api.Customer;
+import agriterra.controller.Controller;
+import agriterra.data.api.Customer;
 
 public class SellerView extends JPanel {
     private final Controller controller;
