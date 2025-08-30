@@ -1,12 +1,18 @@
 plugins {
     java
     application
-    // Task to create a fat JAR
-    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
     mavenCentral()
+}
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "App"
+    }
+    archiveBaseName.set("Progetto_DB")   // nome del jar
+    archiveVersion.set("")                // niente versione nel nome
 }
 
 dependencies {
