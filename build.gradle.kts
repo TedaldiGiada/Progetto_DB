@@ -47,3 +47,9 @@ tasks.test {
         showStandardStreams = true
     }
 }
+
+// Disabilitiamo i task di distribuzione che danno problemi
+tasks.distZip { enabled = false }
+tasks.distTar { enabled = false }
+tasks.startScripts { enabled = false }
+tasks.startShadowScripts { enabled = false }
