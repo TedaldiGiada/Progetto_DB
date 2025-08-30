@@ -1,10 +1,6 @@
 plugins {
-    // Apply the java plugin to add support for Java
     java
-
-    // Apply the application plugin to add support for building a CLI application
     application
-
     // Task to create a fat JAR
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
@@ -42,7 +38,7 @@ tasks.compileJava {
 }
 
 application {
-    mainClass = "porto.App"
+    mainClass = "App"
 }
 
 tasks.test {

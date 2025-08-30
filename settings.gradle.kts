@@ -1,3 +1,2 @@
-// Project: PortoMorteNera
-rootProject.name = "PortoMorteNera"
+rootProject.name = "Progetto_DB"
 
