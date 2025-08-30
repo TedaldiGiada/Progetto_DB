@@ -1,4 +1,4 @@
-package agricola.data.dao;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import agricola.data.EmployeeImpl;
-import agricola.data.api.Employee;
-import agricola.data.api.dao.RegistrationEmployeeDAO;
-import agricola.data.utils.DAOException;
+import agriterra.data.EmployeeImpl;
+import agriterra.data.api.Employee;
+import agriterra.data.api.dao.RegistrationEmployeeDAO;
+import agriterra.data.utils.DAOException;
 
 public class RegistrationEmployeeDAOImpl implements RegistrationEmployeeDAO {
     private final Connection conn;

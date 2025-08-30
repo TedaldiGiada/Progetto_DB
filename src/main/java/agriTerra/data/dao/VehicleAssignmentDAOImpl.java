@@ -1,4 +1,4 @@
-package agricola.data.dao;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import agricola.data.VehicleAssignmentImpl;
-import agricola.data.api.VehicleAssignment;
-import agricola.data.api.dao.VehicleAssignmentDAO;
-import agricola.data.utils.DAOException;
+import agriterra.data.VehicleAssignmentImpl;
+import agriterra.data.api.VehicleAssignment;
+import agriterra.data.api.dao.VehicleAssignmentDAO;
+import agriterra.data.utils.DAOException;
 
 public class VehicleAssignmentDAOImpl implements VehicleAssignmentDAO {
 

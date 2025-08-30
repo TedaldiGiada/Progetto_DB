@@ -1,4 +1,4 @@
-package agricola.data.dao;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import agricola.data.MaintenanceImpl;
-import agricola.data.api.Maintenance;
-import agricola.data.api.dao.MaintenanceRegistrationDAO;
-import agricola.data.utils.DAOException;
+import agriterra.data.MaintenanceImpl;
+import agriterra.data.api.Maintenance;
+import agriterra.data.api.dao.MaintenanceRegistrationDAO;
+import agriterra.data.utils.DAOException;
 
 public class MaintenanceRegistrationDAOImpl implements MaintenanceRegistrationDAO {
     private final Connection conn;
