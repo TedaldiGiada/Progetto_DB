@@ -1,4 +1,4 @@
-package agricola.view;
+package agriterra.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -15,11 +15,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import agricola.controller.Controller;
-import agricola.data.CropCycleImpl;
-import agricola.data.api.CropCycle;
-import agricola.data.api.Machinery;
-import agricola.data.api.Plant;
+import agriterra.controller.Controller;
+import agriterra.data.CropCycleImpl;
+import agriterra.data.api.CropCycle;
+import agriterra.data.api.Machinery;
+import agriterra.data.api.Plant;
 
 public class ManagerView extends JPanel {
     private final Controller controller;

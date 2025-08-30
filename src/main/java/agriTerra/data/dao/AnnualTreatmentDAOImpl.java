@@ -1,4 +1,4 @@
-package agricola.data.dao;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import agricola.data.TreatmentImpl;
-import agricola.data.api.Treatment;
-import agricola.data.api.dao.AnnualTreatmentDAO;
-import agricola.data.utils.DAOException;
+import agriterra.data.TreatmentImpl;
+import agriterra.data.api.Treatment;
+import agriterra.data.api.dao.AnnualTreatmentDAO;
+import agriterra.data.utils.DAOException;
 
 public class AnnualTreatmentDAOImpl implements AnnualTreatmentDAO {
     private final Connection conn;

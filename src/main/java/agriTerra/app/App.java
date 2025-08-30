@@ -1,14 +1,14 @@
-package agricola.app;
+package agriterra.app;
 
 import java.sql.SQLException;
 
 import javax.swing.SwingUtilities;
 
-import agricola.controller.Controller;
-import agricola.data.utils.DAOUtils;
-import agricola.data.utils.Rule;
-import agricola.model.Model;
-import agricola.view.View;
+import agriterra.controller.Controller;
+import agriterra.data.utils.DAOUtils;
+import agriterra.data.utils.Rule;
+import agriterra.model.Model;
+import agriterra.view.View;
 
 public class App {
     @SuppressWarnings("CallToPrintStackTrace")

@@ -1,12 +1,12 @@
-package agricola.data.dao;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import agricola.data.api.dao.AnnualSalesCalculationDAO;
-import agricola.data.utils.DAOException;
+import agriterra.data.api.dao.AnnualSalesCalculationDAO;
+import agriterra.data.utils.DAOException;
 
 public class AnnualSalesCalculationDAOImpl implements AnnualSalesCalculationDAO {
 

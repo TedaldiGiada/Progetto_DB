@@ -1,8 +1,8 @@
-package agricola.data.api.dao;
+package agriterra.data.api.dao;
 
 import java.util.List;
 
-import agricola.data.api.Maintenance;
+import agriterra.data.api.Maintenance;
 
 public interface MaintenanceRegistrationDAO {
 

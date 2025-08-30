@@ -1,4 +1,4 @@
-package agricola.data.dao;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import agricola.data.CropCycleImpl;
-import agricola.data.api.CropCycle;
-import agricola.data.api.dao.LowYieldLandsDAO;
-import agricola.data.utils.DAOException;
+import agriterra.data.CropCycleImpl;
+import agriterra.data.api.CropCycle;
+import agriterra.data.api.dao.LowYieldLandsDAO;
+import agriterra.data.utils.DAOException;
 
 public class LowYieldLandsDAOImpl implements LowYieldLandsDAO {
     private final Connection conn;

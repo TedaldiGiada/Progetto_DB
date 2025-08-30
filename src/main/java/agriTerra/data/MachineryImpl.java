@@ -1,6 +1,6 @@
-package agricola.data;
+package agriterra.data;
 
-import agricola.data.api.Machinery;
+import agriterra.data.api.Machinery;
 
 public class MachineryImpl implements Machinery {
     private final String id;

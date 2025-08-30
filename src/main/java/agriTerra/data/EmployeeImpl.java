@@ -1,6 +1,6 @@
-package agricola.data;
+package agriterra.data;
 
-import agricola.data.api.Employee;
+import agriterra.data.api.Employee;
 
 public class EmployeeImpl implements Employee {
 

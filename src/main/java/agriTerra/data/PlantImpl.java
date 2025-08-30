@@ -1,6 +1,6 @@
-package agricola.data;
+package agriterra.data;
 
-import agricola.data.api.Plant;
+import agriterra.data.api.Plant;
  
 public class PlantImpl implements Plant {
     private final int id;

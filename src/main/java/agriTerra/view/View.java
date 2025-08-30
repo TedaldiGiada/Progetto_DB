@@ -1,4 +1,4 @@
-package agricola.view;
+package agriterra.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import agricola.controller.Controller;
+import agriterra.controller.Controller;
 
 public class View extends JFrame{
     private Controller controller;

@@ -1,8 +1,8 @@
-package agricola.data.api.dao;
+package agriterra.data.api.dao;
 
 import java.util.List;
 
-import agricola.data.api.Plant;
+import agriterra.data.api.Plant;
 
 public interface AnnualLandCultivationDAO {
 

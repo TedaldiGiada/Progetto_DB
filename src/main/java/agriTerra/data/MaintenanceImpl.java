@@ -1,6 +1,6 @@
-package agricola.data;
+package agriterra.data;
 
-import agricola.data.api.Maintenance;
+import agriterra.data.api.Maintenance;
 
 public class MaintenanceImpl implements Maintenance {
     private int id;

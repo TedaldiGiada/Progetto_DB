@@ -1,24 +1,24 @@
-package agricola.controller;
+package agriterra.controller;
 
 import java.util.List;
 
 import javax.swing.JPanel;
 
-import agricola.data.api.CropCycle;
-import agricola.data.api.Customer;
-import agricola.data.api.Employee;
-import agricola.data.api.Machinery;
-import agricola.data.api.Maintenance;
-import agricola.data.api.Plant;
-import agricola.data.api.Treatment;
-import agricola.data.api.VehicleAssignment;
-import agricola.data.utils.Rule;
-import agricola.model.Model;
-import agricola.view.AdminView;
-import agricola.view.LoginView;
-import agricola.view.ManagerView;
-import agricola.view.SellerView;
-import agricola.view.View;
+import agriterra.data.api.CropCycle;
+import agriterra.data.api.Customer;
+import agriterra.data.api.Employee;
+import agriterra.data.api.Machinery;
+import agriterra.data.api.Maintenance;
+import agriterra.data.api.Plant;
+import agriterra.data.api.Treatment;
+import agriterra.data.api.VehicleAssignment;
+import agriterra.data.utils.Rule;
+import agriterra.model.Model;
+import agriterra.view.AdminView;
+import agriterra.view.LoginView;
+import agriterra.view.ManagerView;
+import agriterra.view.SellerView;
+import agriterra.view.View;
 
 public class Controller {
 

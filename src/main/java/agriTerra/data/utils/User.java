@@ -1,4 +1,4 @@
-package agricola.data.utils;
+package agriterra.data.utils;
 
 public class User {
     private String username;

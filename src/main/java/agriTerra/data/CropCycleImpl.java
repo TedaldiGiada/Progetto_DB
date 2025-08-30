@@ -1,8 +1,8 @@
-package agricola.data;
+package agriterra.data;
 
 import java.sql.Date;
 
-import agricola.data.api.CropCycle;
+import agriterra.data.api.CropCycle;
 
 public class CropCycleImpl implements CropCycle {
 

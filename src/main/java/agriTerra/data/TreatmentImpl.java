@@ -1,7 +1,7 @@
-package agricola.data;
+package agriterra.data;
 import java.sql.Date;
 
-import agricola.data.api.Treatment;
+import agriterra.data.api.Treatment;
 
 public class TreatmentImpl implements Treatment {
     private final int id;

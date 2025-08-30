@@ -1,6 +1,6 @@
-package agricola.data;
+package agriterra.data;
 
-import agricola.data.api.Customer;
+import agriterra.data.api.Customer;
 
 public class CustomerImpl implements Customer {
     private String cf;

@@ -1,4 +1,4 @@
-package agricola.data.dao;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import agricola.data.CustomerImpl;
-import agricola.data.api.Customer;
-import agricola.data.api.dao.CustomerListDAO;
-import agricola.data.utils.DAOException;
+import agriterra.data.CustomerImpl;
+import agriterra.data.api.Customer;
+import agriterra.data.api.dao.CustomerListDAO;
+import agriterra.data.utils.DAOException;
 
 public class CustomerListDAOImpl implements CustomerListDAO {
     private final Connection conn;

@@ -1,4 +1,4 @@
-package agricola.data.api;
+package agriterra.data.api;
 
 import java.sql.Date;
 

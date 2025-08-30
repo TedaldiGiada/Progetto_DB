@@ -1,8 +1,8 @@
-package agricola.data.api.dao;
+package agriterra.data.api.dao;
 
 import java.util.List;
 
-import agricola.data.api.Treatment;
+import agriterra.data.api.Treatment;
 
 public interface AnnualTreatmentDAO {
 

@@ -1,8 +1,8 @@
-package agricola.data;
+package agriterra.data;
 
 import java.sql.Date;
 
-import agricola.data.api.VehicleAssignment;
+import agriterra.data.api.VehicleAssignment;
 
 public class VehicleAssignmentImpl implements VehicleAssignment {
     private String cF;

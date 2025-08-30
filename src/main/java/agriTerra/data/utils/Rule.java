@@ -1,4 +1,4 @@
-package agricola.data.utils;
+package agriterra.data.utils;
 
 public enum Rule {
     ADMIN,

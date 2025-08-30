@@ -1,4 +1,4 @@
-package agricola.data.api.dao;
+package agriterra.data.api.dao;
 
 public interface AnnualSalesCalculationDAO {
 

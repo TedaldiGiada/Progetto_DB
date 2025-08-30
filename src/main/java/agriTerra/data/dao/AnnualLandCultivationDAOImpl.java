@@ -1,4 +1,4 @@
-package agricola.data.dao;
+package agriterra.data.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import agricola.data.PlantImpl;
-import agricola.data.api.Plant;
-import agricola.data.api.dao.AnnualLandCultivationDAO;
-import agricola.data.utils.DAOException;
+import agriterra.data.PlantImpl;
+import agriterra.data.api.Plant;
+import agriterra.data.api.dao.AnnualLandCultivationDAO;
+import agriterra.data.utils.DAOException;
 
 public class AnnualLandCultivationDAOImpl implements AnnualLandCultivationDAO {
     private final Connection conn;
