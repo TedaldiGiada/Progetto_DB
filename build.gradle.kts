@@ -1,50 +1,43 @@
 plugins {
     java
     application
+    id("com.github.johnrengelman.shadow") version "8.1.1" // per fat jar
 }
 
 repositories {
     mavenCentral()
 }
 
-tasks.jar {
-    manifest {
-        attributes["Main-Class"] = "App"
-    }
-    archiveBaseName.set("Progetto_DB")   // nome del jar
-    archiveVersion.set("")                // niente versione nel nome
-}
-
 dependencies {
     implementation("com.mysql:mysql-connector-j:9.3.0")
     implementation("org.apache.commons:commons-lang3:3.17.0")
     implementation("com.google.guava:guava:33.4.8-jre")
-    testImplementation("org.assertj:assertj-core:3.27.3")
-
-    // SLF4J for logging abstraction
     implementation("org.slf4j:slf4j-api:2.0.16")
-    // Logback backend for SLF4J
     runtimeOnly("ch.qos.logback:logback-classic:1.5.12")
 
-    // JUnit API and testing engine
+    testImplementation("org.assertj:assertj-core:3.27.3")
     val jUnitVersion = "5.11.3"
-    // when dependencies share the same version, grouping in a val helps to keep them in sync
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
-tasks.compileJava {
-    options.encoding = "UTF-8"
+application {
+    mainClass.set("agricola.app.App") // package completo della classe main
 }
 
-application {
-    mainClass = "App"
+tasks.shadowJar {
+    archiveBaseName.set("Progetto_DB")
+    archiveVersion.set("")
+    archiveClassifier.set("") // rimuove il "-all" dal nome
+    manifest {
+        attributes["Main-Class"] = "agricola.app.App" // package completo
+    }
 }
 
 tasks.test {
@@ -52,14 +45,5 @@ tasks.test {
     testLogging {
         events(*org.gradle.api.tasks.testing.logging.TestLogEvent.values())
         showStandardStreams = true
-    }
-}
-
-tasks.shadowJar {
-    archiveBaseName.set("Progetto_DB")
-    archiveVersion.set("")
-    archiveClassifier.set("") // così non aggiunge "-all"
-    manifest {
-        attributes["Main-Class"] = "App"
     }
 }
