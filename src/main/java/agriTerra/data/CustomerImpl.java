@@ -3,9 +3,9 @@ package agriterra.data;
 import agriterra.data.api.Customer;
 
 public class CustomerImpl implements Customer {
-    private String cf;
-    private String nome;
-    private String cognome;
+    private final String cf;
+    private final String nome;
+    private final String cognome;
 
     public CustomerImpl(String cf, String nome, String cognome) {
         this.cf = cf;

@@ -3,12 +3,12 @@ package agriterra.data;
 import agriterra.data.api.Maintenance;
 
 public class MaintenanceImpl implements Maintenance {
-    private int id;
-    private String azienda;
-    private String descrizione;
-    private String tipo;
-    private int idSpesa;
-    private String idMacchinario;
+    private final int id;
+    private final String azienda;
+    private final String descrizione;
+    private final String tipo;
+    private final int idSpesa;
+    private final String idMacchinario;
 
     public MaintenanceImpl(int id, String azienda, String descrizione, String tipo, int idSpesa, String idMacchinario) {
         this.id = id;

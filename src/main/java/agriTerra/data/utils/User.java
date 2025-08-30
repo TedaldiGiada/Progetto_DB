@@ -1,9 +1,9 @@
 package agriterra.data.utils;
 
 public class User {
-    private String username;
-    private String password;
-    private Rule ruolo;
+    private final String username;
+    private final String password;
+    private final Rule ruolo;
 
     public User(String username, String password, Rule ruolo) {
         this.username = username;

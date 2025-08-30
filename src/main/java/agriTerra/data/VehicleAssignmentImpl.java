@@ -5,10 +5,10 @@ import java.sql.Date;
 import agriterra.data.api.VehicleAssignment;
 
 public class VehicleAssignmentImpl implements VehicleAssignment {
-    private String cF;
-    private String idMacchina;
-    private Date data;
-    private String note;
+    private final String cF;
+    private final String idMacchina;
+    private final Date data;
+    private final String note;
 
     public VehicleAssignmentImpl(String cF, String idMacchina, Date data, String note) {
         this.cF = cF;

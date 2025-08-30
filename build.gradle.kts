@@ -28,7 +28,7 @@ java {
 }
 
 application {
-    mainClass.set("agricola.app.App") // package completo della classe main
+    mainClass.set("agriterra.app.App") // package completo della classe main
 }
 
 tasks.shadowJar {
@@ -36,7 +36,7 @@ tasks.shadowJar {
     archiveVersion.set("")
     archiveClassifier.set("") // rimuove il "-all" dal nome
     manifest {
-        attributes["Main-Class"] = "agricola.app.App" // package completo
+        attributes["Main-Class"] = "agriterra.app.App" // package completo
     }
 }
 
