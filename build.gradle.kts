@@ -40,6 +40,20 @@ tasks.shadowJar {
     }
 }
 
+// ✅ Usa shadowJar come jar principale
+tasks.jar {
+    enabled = false
+}
+artifacts {
+    archives(tasks.shadowJar)
+}
+
+// ✅ Disabilita i task di distribuzione che danno errore
+tasks.distZip { enabled = false }
+tasks.distTar { enabled = false }
+tasks.startScripts { enabled = false }
+tasks.startShadowScripts { enabled = false }
+
 tasks.test {
     useJUnitPlatform()
     testLogging {
@@ -47,9 +61,3 @@ tasks.test {
         showStandardStreams = true
     }
 }
-
-// Disabilitiamo i task di distribuzione che danno problemi
-tasks.distZip { enabled = false }
-tasks.distTar { enabled = false }
-tasks.startScripts { enabled = false }
-tasks.startShadowScripts { enabled = false }
