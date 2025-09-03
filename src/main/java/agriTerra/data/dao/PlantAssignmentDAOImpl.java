@@ -31,8 +31,8 @@ public class PlantAssignmentDAOImpl implements PlantAssignmentDAO {
 
         try (PreparedStatement checkSt = conn.prepareStatement(checkOccupazione)) {
             checkSt.setInt(1, cropCycle.getIdTerreno());
-            checkSt.setDate(2, cropCycle.getDataFine());   // fine nuovo ciclo
-            checkSt.setDate(3, cropCycle.getDataInizio()); // inizio nuovo ciclo
+            checkSt.setDate(2, cropCycle.getDataInizio());   // fine nuovo ciclo
+            checkSt.setDate(3, cropCycle.getDataFine()); // inizio nuovo ciclo
             try (ResultSet rs = checkSt.executeQuery()) {
                 rs.next();
                 if (rs.getInt(1) > 0) {
