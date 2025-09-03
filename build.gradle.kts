@@ -32,7 +32,7 @@ application {
 }
 
 tasks.shadowJar {
-    archiveBaseName.set("Progetto_DB")
+    archiveBaseName.set("dbAgriTerra")
     archiveVersion.set("")
     archiveClassifier.set("") // rimuove il "-all" dal nome
     manifest {
