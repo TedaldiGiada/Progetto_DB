@@ -18,8 +18,8 @@ C.	Avvio dell'applicazione:
         •	Fare doppio clic sul file dbAgriTerra.jar
       
       Altrimenti, eseguire da terminale:
-        •	Windows: java -jar .\dbAgriTerra.jar
-        •	Linux/Mac: java -jar ./dbAgriTerra.jar
+        •	Windows: java -jar build/libs/dbAgriTerra.jar
+        •	Linux/Mac: java -jar build/libs/dbAgriTerra.jar
 
       In caso di problemi, clonare il repo e ricompilare il progetto eseguendo da terminale:
         •	Windows: .\gradlew.bat clean run
