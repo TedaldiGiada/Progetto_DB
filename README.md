@@ -1,4 +1,4 @@
-PROGETTO BASI DI DATi
+PROGETTO BASI DI DATI
 
 A.	Istruzioni sull’avvio dell’applicativo
 
